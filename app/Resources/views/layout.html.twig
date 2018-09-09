@@ -1,0 +1,204 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+	<div class="body">
+		{# ****************************Header******************************** #}
+
+			<header id="header" data-plugin-options='{"stickyEnabled": true, "stickyEnableOnBoxed": true, "stickyEnableOnMobile": true, "stickyStartAt": 57, "stickySetTop": "-57px", "stickyChangeLogo": true}'>
+			{% block header %}
+				<div class="header-body">
+					<div class="header-container container">
+						<div class="header-row">
+							<div class="header-column">
+								<div class="header-logo">
+
+									{#<a href="{{ path('home_page') }}">
+										<img alt="Porto" width="100" height="84" data-sticky-width="76" data-sticky-height="64" data-sticky-top="33" src="{{ asset('img/') }}">
+									</a>#}
+
+								</div>
+							</div>
+							<div class="header-column">
+								<div class="header-logo">
+
+									{#<a href="{{ path('home_page') }}">
+										<img alt="Porto" width="120" height="84" data-sticky-width="92" data-sticky-height="64" data-sticky-top="33" src="{{ asset('img/') }}">
+									</a>#}
+
+								</div>
+							</div>
+
+							<div class="header-column">
+								<div class="header-row">
+									{#<img src="{{ asset('img/image.png') }}" width="600" height="60" alt="">#}
+									<div class="header-search hidden-xs">
+										<form id="searchForm" action="{{ path('search_page') }}" method="get">
+											<div class="input-group">
+												<input type="text" class="form-control" name="search" id="q" placeholder="Search..." required>
+													<span class="input-group-btn">
+														<button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
+													</span>
+											</div>
+										</form>
+									</div>
+								</div>
+								<div class="header-row">
+									<div class="header-nav">
+										<button class="btn header-btn-collapse-nav" data-toggle="collapse" data-target=".header-nav-main">
+											<i class="fa fa-bars"></i>
+										</button>
+										<div class="header-nav-main header-nav-main-effect-1 header-nav-main-sub-effect-1 collapse">
+											<nav>
+												<ul class="nav nav-pills" id="mainNav">
+													<li class="dropdown _home_">
+														<a class="dropdown" href="{{ path('homepage') }}">
+															<i class="fa fa-home"></i> Home
+														</a>
+													</li>
+													<li class="dropdown _personnel_">
+														<a class="dropdown-toggle" href="#">Topic</a>
+														<ul class="dropdown-menu">
+															<li><a href="{{ path('topic_index') }}">Topic</a></li>
+															<li><a href="{{ path('topic_new') }}">Add Topic</a></li>
+														</ul>
+													</li>
+													{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+														{% set user = app.user %}
+                                                        <li class="dropdown dropdown-mega dropdown-mega-signin signin logged _user_" id="headerAccount">
+															<a class="dropdown-toggle" href="#"><i class="fa fa-user"></i> {{ app.user.username }}</a>
+															<ul class="dropdown-menu">
+																<li>
+																	<div class="dropdown-mega-content">
+																		<div class="row">
+																			<div class="col-md-8">
+																				<div class="user-avatar">
+                                                                                    {#{% if user is not empty %}
+                                                                                        <div class="img-thumbnail">
+                                                                                            <img src="{{ asset('photos/382o429dcpk4csw0og4kggg8484gc88/' ~ user.photo) }}" alt="">
+                                                                                        </div>
+                                                                                        <p><strong>{{ user.name }} {{ user.lastName }}</strong><span>{{ user.username }}}</span></p>
+                                                                                    {% endif %}#}
+																				</div>
+																			</div>
+																			<div class="col-md-4">
+																				<ul class="list-account-options">
+																					<li><a href="{{ path('fos_user_profile_edit') }}">Profile</a></li>
+																					<li><a href="{{ path('fos_user_security_logout') }}">Log Out</a></li>
+																					{% if is_granted('ROLE_ADMIN') %}
+																						<li><a href="{{ path('user_index') }}">Users</a></li>
+																					{% endif %}
+																				</ul>
+																			</div>
+																		</div>
+																	</div>
+																</li>
+															</ul>
+														</li>
+													{% endif %}
+
+												</ul>
+											</nav>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			{% endblock %}
+			</header>
+		{#******************************end of Header**********************************#}
+
+		{% block main %}
+		<div role="main" class="main">
+			{% block page_header %}
+				<section class="page-header mb-none">
+					<div class="container">
+						<div class="row">
+							<div class="col-md-12">
+								<ul class="breadcrumb">
+									<li><a href="#">{% block page_header_1 %}{% endblock %}</a></li>
+									<li class="active">{% block page_header_category %}{% endblock %}</li>
+								</ul>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<h1>{% block page_header_3 %}{% endblock %}</h1>
+							</div>
+						</div>
+					</div>
+				</section>
+			{% endblock %}
+
+            {#********************************* Dynamic **************************************#}
+			<div class="container">
+				{% block dynamic %}
+					{% block siderBarLeft %}{% endblock %}
+				{% endblock %}
+			</div>
+            {#***************************** End of Dynamid ***********************************#}
+
+
+
+		</div>
+		{% endblock %}
+
+		{#********************************* Footer **************************************#}
+		<footer id="footer">
+			{% block footer %}
+				<div class="container">
+					<div class="row">
+						<div class="footer-ribbon">
+							<span>Maze</span>
+						</div>
+						<div class="col-md-12">
+							<div class="contact-details">
+								<h4>Contact</h4>
+								<ul class="contact">
+									<li><p><i class="fa fa-map-marker"></i> <strong>Address:</strong> Antaninarenina, Antananarivo 101, Madagascar</p></li>
+									<li><p><i class="fa fa-phone"></i> <strong>Phone:</strong> +261 22 123 45</p></li>
+									<li><p><i class="fa fa-envelope"></i> <strong>Email:</strong> <a href="mailto:dsi@midsp.gov.mg">contact@maze.mg </a>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="footer-copyright">
+					<div class="container">
+						<div class="row">
+							<div class="col-md-12">
+								<p class="copyright_">© Copyright 2016 Maze. All Rights Reserved.</p>
+								<p class="madeBy_">Made by <a href="http://www.mazecon.dev" target="_blank">Mazecon</a></p>
+							</div>
+						</div>
+					</div>
+				</div>
+			{% endblock %}
+		</footer>
+        {#********************************* End of Footer **************************************#}
+
+		<div id="dialog" class="modal-block mfp-hide">
+			<section class="panel">
+				<header class="panel-heading">
+					<h2 class="panel-title">Are you sure?</h2>
+				</header>
+				<div class="panel-body">
+					<div class="modal-wrapper">
+						<div class="modal-text">
+							<p>Are you sure that you want to delete this row?</p>
+						</div>
+					</div>
+				</div>
+				<footer class="panel-footer">
+					<div class="row">
+						<div class="col-md-12 text-right">
+							<button id="dialogConfirm" class="btn btn-primary">Confirm</button>
+							<button id="dialogCancel" class="btn btn-default">Cancel</button>
+						</div>
+					</div>
+				</footer>
+			</section>
+		</div>
+
+	</div>
+{% endblock %}

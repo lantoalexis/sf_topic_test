@@ -1,0 +1,22 @@
+mazecon_topic_topic_user_view:
+    resource: "@MazeconTopicBundle/Controller/TopicUserViewController.php"
+    type:     annotation
+
+mazecon_topic_user:
+    resource: "@MazeconTopicBundle/Controller/UserController.php"
+    type:     annotation
+
+mazecon_topic_topic:
+    resource: "@MazeconTopicBundle/Controller/TopicController.php"
+    type:     annotation
+
+mazecon_topic:
+    resource: "@MazeconTopicBundle/Controller/"
+    type:     annotation
+
+app:
+    resource: '@AppBundle/Controller/'
+    type: annotation
+
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"

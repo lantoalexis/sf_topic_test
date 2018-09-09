@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html class="boxed">
+<head>
+
+    <!-- Basic -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+
+    <title>{% block title %} User Topic {% endblock %}</title>
+    {% block meta %}
+        <meta name="keywords" content="User Topic" />
+        <meta name="description" content="">
+        <meta name="author" content="Mazecon">
+        <!-- Mobile Metas -->
+        <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    {% endblock %}
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+
+    <!-- Web Fonts  -->
+    {#<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800%7CShadows+Into+Light" rel="stylesheet" type="text/css">#}
+
+    <!-- Vendor CSS -->
+    {% block stylesheet %}
+        <link rel="stylesheet" href="{{ asset('vendor/bootstrap/css/bootstrap.css')}}"/>
+        <link rel="stylesheet" href="{{ asset('vendor/font-awesome/css/font-awesome.css')}}">
+        <link rel="stylesheet" href="{{ asset('vendor/simple-line-icons/css/simple-line-icons.css')}}">
+        <link rel="stylesheet" href="{{ asset('vendor/owl.carousel/assets/owl.carousel.min.css')}}">
+        <link rel="stylesheet" href="{{ asset('vendor/owl.carousel/assets/owl.theme.default.min.css')}}">
+        <link rel="stylesheet" href="{{ asset('vendor/magnific-popup/magnific-popup.css')}}">
+
+        <!-- Theme CSS -->
+        <link rel="stylesheet" href="{{ asset('css/theme.css')}}">
+        <link rel="stylesheet" href="{{ asset('css/theme-elements.css')}}">
+        <link rel="stylesheet" href="{{ asset('css/theme-blog.css')}}">
+        <link rel="stylesheet" href="{{ asset('css/theme-shop.css')}}">
+        <link rel="stylesheet" href="{{ asset('css/theme-animate.css')}}">
+        <link rel="stylesheet" href="{{ asset('css/theme-custom.css')}}">
+
+        <!-- Current Page CSS -->
+        {% block css_current_page %}
+        {% endblock %}
+
+        <!-- Skin CSS -->
+        <link rel="stylesheet" href="{{ asset('css/skins/default.css')}}">
+
+        <!-- Theme Custom CSS -->
+        <link rel="stylesheet" href="{{ asset('css/custom.css')}}">
+
+    {% endblock %}
+
+    <!-- Head Libs -->
+    <script src="{{ asset('vendor/modernizr/modernizr.js')}}"></script>
+
+</head>
+<body>
+
+{#*******************Body block*******************#}
+{% block body %}{% endblock %}
+{#************************************************#}
+
+
+{% block javascript_css %}
+<!-- Vendor -->
+    <script src="{{ asset('extension/vendor/jquery/jquery.js')}}"></script>
+    <script src="{{ asset('vendor/jquery-cookie/jquery-cookie.js')}}"></script>
+    <script src="{{ asset('vendor/bootstrap/js/bootstrap.js')}}"></script>
+    <script src="{{ asset('vendor/magnific-popup/jquery.magnific-popup.js')}}"></script>
+    <script src="{{ asset('vendor/vide/vide.js')}}"></script>
+    <script src="{{ asset('vendor/owl.carousel/owl.carousel.js')}}"></script>
+
+    <script src="{{ asset('extension/vendor/jquery-browser-mobile/jquery.browser.mobile.js')}}"></script>
+    <script src="{{ asset('extension/vendor/nanoscroller/nanoscroller.js')}}"></script>
+    <script src="{{ asset('extension/vendor/magnific-popup/magnific-popup.js')}}"></script>
+    <script src="{{ asset('extension/vendor/jquery-placeholder/jquery.placeholder.js')}}"></script>
+
+    <!-- Theme Base, Components and Settings -->
+    <script src="{{ asset('js/theme.js')}}"></script>
+
+    <!-- Current Page Vendor and Views -->
+
+    <!--script Extension block-->
+    {% block javascripts_current_page %}
+    {% endblock %}
+
+    <!-- Theme Custom -->
+    <script src="{{ asset('js/custom.js')}}"></script>
+
+    <!-- Theme Initialization Files -->
+    <script src="{{ asset('js/theme.init.js')}}"></script>
+
+    <!-- Google Analytics: Change UA-XXXXX-X to be your site's ID. Go to http://www.google.com/analytics/ for more information.
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-12345678-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+     -->
+{% endblock %}
+</body>
+</html>

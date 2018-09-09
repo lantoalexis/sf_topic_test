@@ -1,0 +1,139 @@
+.panel-heading {
+    background: #f6f6f6;
+    border-radius: 5px 5px 0 0;
+    border-bottom: 1px solid #DADADA;
+    padding: 18px;
+    position: relative;
+}
+
+.panel-heading.bg-primary {
+    background: #cccccc;
+    color: white;
+    border-bottom: 0 none;
+    border-right: 0 none;
+}
+
+.panel-heading.bg-secondary {
+    background: #e36159;
+    color: white;
+    border-bottom: 0 none;
+    border-right: 0 none;
+}
+
+.panel-heading.bg-tertiary {
+    background: #2baab1;
+    color: white;
+    border-bottom: 0 none;
+    border-right: 0 none;
+}
+
+.panel-heading.bg-quartenary {
+    background: #734ba9;
+    color: white;
+    border-bottom: 0 none;
+    border-right: 0 none;
+}
+
+.panel-heading.bg-success {
+    background: #47a447;
+    color: white;
+    border-bottom: 0 none;
+    border-right: 0 none;
+}
+
+.panel-heading.bg-warning {
+    background: #ed9c28;
+    color: white;
+    border-bottom: 0 none;
+    border-right: 0 none;
+}
+
+.panel-heading.bg-danger {
+    background: #d2322d;
+    color: white;
+    border-bottom: 0 none;
+    border-right: 0 none;
+}
+
+.panel-heading.bg-info {
+    background: #5bc0de;
+    color: white;
+    border-bottom: 0 none;
+    border-right: 0 none;
+}
+
+.panel-heading.bg-dark {
+    background: #171717;
+    color: white;
+    border-bottom: 0 none;
+    border-right: 0 none;
+}
+
+.panel-heading.bg-white {
+    background: #fff;
+    border-bottom: 0 none;
+    border-right: 0 none;
+}
+
+.panel-actions {
+    right: 15px;
+    position: absolute;
+    top: 15px;
+}
+
+.panel-actions a {
+    background-color: transparent;
+    border-radius: 2px;
+    color: #b4b4b4;
+    font-size: 14px;
+    height: 24px;
+    line-height: 24px;
+    text-align: center;
+    width: 24px;
+}
+
+.panel-actions a:hover {
+    background-color: #eeeeee;
+    color: #b4b4b4;
+    text-decoration: none;
+}
+
+.panel-actions a, .panel-actions a:focus, .panel-actions a:hover, .panel-actions a:active, .panel-actions a:visited {
+    outline: none !important;
+    text-decoration: none !important;
+}
+
+.panel-title {
+    color: #33353f;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 20px;
+    padding: 0;
+    text-transform: none;
+}
+
+.modal-block {
+    text-align: left;
+}
+
+.mfp-auto-cursor .mfp-content {
+    cursor: auto;
+}
+
+.mfp-inline-holder .mfp-content, .mfp-ajax-holder .mfp-content {
+    width: 100%;
+    cursor: auto;
+}
+
+.mfp-content {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 auto;
+    text-align: left;
+    z-index: 1045;
+}
+
+.mfp-container {
+    text-align: center;
+}

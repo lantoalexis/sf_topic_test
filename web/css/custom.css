@@ -1,0 +1,21 @@
+/* Add here all your CSS customizations */
+
+label.required:after {
+    content: " *";
+    color: red;
+}
+
+p.copyright_{
+    text-align: center;
+}
+p.madeBy_{
+    text-align: center;
+}
+
+.error_{
+    color:red;
+}
+
+ul.form_error{
+    color:red;
+}

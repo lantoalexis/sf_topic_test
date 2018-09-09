@@ -1,0 +1,83 @@
+{% extends 'layout.html.twig' %}
+{% block page_header_1 %}home{% endblock %}
+{% block page_header_category %}Page header 2{% endblock %}
+{% block page_header_3 %}Page header 3{% endblock %}
+
+{% block dynamic %}
+    <div class="row" id="_conge_">
+        {% block siderBarLeft %}
+            {{ include('siderBarLeft/siderbar-left.html.twig',{'id':'1', 'section1':"Header sur la section1"}) }}
+        {% endblock %}
+        <div class="col-md-9">
+            <section class="panel">
+                <header class="panel-heading">
+                    <h2 class="panel-title">Header Title Panel</h2>
+                </header>
+                <div class="panel-body">
+                    <table class="table table-bordered table-striped mb-none" id="datatable-topic">
+                        <thead>
+                        <tr>
+                            <th>N° Topic </th>
+                            <th>Topic</th>
+                            <th>Utilisateur</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% if topics is defined %}
+                            {% for topic in topics%}
+                                {% set user = topic.getUser() %}
+                                <tr class="gradeX">
+                                    <td>{{ topic.getId() }}</td>
+                                    <td>{{ topic.getTitle() }}</td>
+                                    <td>{{ user.getName() }} {{ user.getLastName() }}</td>
+                                    <td class="actions">
+                                        <a href="{{ path('topic_edit', {'id':topic.getId()}) }}" class="on-default edit-row"><i class="fa fa-pencil"></i></a>
+                                        <a href="#" class="on-default remove-row"><i class="fa fa-trash-o"></i></a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </div>
+{% endblock %}
+
+
+
+
+{% block javascripts_current_page %}
+    <script src="{{ asset('extension/vendor/select2/select2.js') }}" ></script>
+    <script src="{{ asset('extension/vendor/magnific-popup/magnific-popup.js') }}" ></script>
+    <script src="{{ asset('extension/javascripts/theme.js') }}" ></script>
+    <script src="{{ asset('extension/javascripts/theme.custom.js') }}" ></script>
+    <script src="{{ asset('extension/javascripts/theme.init.js') }}" ></script>
+    <script src="{{ asset('extension/vendor/pnotify/pnotify.custom.js') }}" ></script>
+
+
+    <script src="{{ asset('dataTables/datatables.min.js') }}" ></script>
+
+   {# <script src="{{ asset('extension/vendor/jquery-datatables/media/js/jquery.dataTables.js') }}" ></script>
+    <script src="{{ asset('extension/vendor/jquery-datatables-bs3/assets/js/datatables.js') }}" ></script>
+    <script src="{{ asset('extension/javascripts/tables/conge.datatables.js') }}" ></script>#}
+
+    <script>
+        $(document).ready(function(){
+            $('#datatable-topic').DataTable();
+        })
+    </script>
+
+{% endblock %}
+
+{% block css_current_page %}
+    <link rel="stylesheet" href="{{ asset('extension/vendor/select2/select2.css') }}">
+    <link rel="stylesheet" href="{{ asset('extension/vendor/magnific-popup/magnific-popup.css') }}">
+    <link rel="stylesheet" href="{{ asset('extension/vendor/pnotify/pnotify.custom.css') }}">
+
+
+    <link rel="stylesheet" href="{{ asset('dataTables/datatables.min.css') }}">
+    {#<link rel="stylesheet" href="{{ asset('extension/vendor/jquery-datatables-bs3/assets/css/datatables.css') }}">#}
+{% endblock %}

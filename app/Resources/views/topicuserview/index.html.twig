@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Topicuserviews list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for topicUserView in topicUserViews %}
+            <tr>
+                <td><a href="{{ path('topicuserview_show', { 'id': topicUserView.id }) }}">{{ topicUserView.id }}</a></td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('topicuserview_show', { 'id': topicUserView.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('topicuserview_edit', { 'id': topicUserView.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('topicuserview_new') }}">Create a new topicUserView</a>
+        </li>
+    </ul>
+{% endblock %}

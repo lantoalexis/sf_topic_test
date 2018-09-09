@@ -1,0 +1,3 @@
+mazecon_topic_homepage:
+    path:     /
+    defaults: { _controller: MazeconTopicBundle:Default:index }
