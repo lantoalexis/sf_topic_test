@@ -1,0 +1,53 @@
+{% extends 'layout.html.twig' %}
+{% block page_header_breadcrumb_root %}home{% endblock %}
+{% block page_header_breadcrumb_child %}Page header 2{% endblock %}
+{% block page_header_title %}Page header 3{% endblock %}
+
+
+{% block dynamic %}
+    <div class="row" id="_user_">
+        {% block siderBarLeft %}
+            {{ include('siderBarLeft/siderbar-left.html.twig',{'id':'1'}) }}
+        {% endblock %}
+        <div class="col-md-9">
+            <section>
+                <div class="search-content">
+                    <div class="tab-content">
+                        <div class="tab-pane active">
+                            <h4>Resultat de la Recheche:
+                                {% if request is defined %}
+                                    {{ request }}
+                                {% endif %}
+                            </h4>
+                            <br>
+                            <p class="total-results text-muted">{{ liste_user|length }} resultat(s)</p>
+                            <ul class="list-unstyled search-results-list">
+                                {% if users is defined %}
+                                    {% for user in users %}
+                                        <li>
+                                            <p class="result-type">
+                                                <span class="label label-primary">Utilisateur</span>
+                                            </p>
+                                            <a href="{{ path('info_user', {'id':user.getId()}) }}" class="has-thumb">
+                                                <div class="result-thumb">
+                                                    <img src="{{ asset('photos/382o429dcpk4csw0og4kggg8484gc88/' ~ user.getPhoto()) }}" alt="" />
+                                                </div>
+                                                <div class="result-data">
+                                                    <p class="h3 title text-primary">{{ user.getNom() | upper }} {{ user.getPrenom() }}</p>
+                                                    <p class="description">{{ user.ge }}</p>
+                                                </div>
+                                            </a>
+                                        </li>
+                                    {% endfor %}
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+{% endblock %}
+{% block css_current_page %}
+    <link rel="stylesheet" href="{{ asset('extension/stylesheets/theme-custom.css') }}">
+{% endblock %}

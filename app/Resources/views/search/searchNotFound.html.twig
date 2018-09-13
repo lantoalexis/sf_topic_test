@@ -1,0 +1,35 @@
+{% extends 'layout.html.twig' %}
+{% block page_header_breadcrumb_root %}home{% endblock %}
+{% block page_header_breadcrumb_child %}Page header 2{% endblock %}
+{% block page_header_title %}Page header 3{% endblock %}
+
+
+{% block dynamic %}
+    <div class="row" id="_personnel_">
+        {% block siderBarLeft %}
+            {{ include('siderBarLeft/siderbar-left.html.twig',{'id':'1'}) }}
+        {% endblock %}
+        <div class="col-md-9">
+            <section class="panel">
+                <header class="panel-heading">
+                    <h2 class="panel-title">Not Found</h2>
+                </header>
+                <div class="panel-body">
+                    <section class="page-not-found">
+                        <div class="row">
+                            <div class="col-md-offset-1">
+                                <div class="page-not-found-main">
+                                    <h3>404 <i class="fa fa-file"></i></h3>
+                                    <p>{{ message }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </section>
+        </div>
+    </div>
+{% endblock %}
+    {% block css_current_page %}
+        <link rel="stylesheet" href="{{ asset('extension/stylesheets/theme-custom.css') }}">
+    {% endblock %}

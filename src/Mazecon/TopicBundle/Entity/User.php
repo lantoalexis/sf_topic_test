@@ -4,12 +4,15 @@ namespace Mazecon\TopicBundle\Entity;
 use FOS\UserBundle\Model\User as BaseUser;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * User
  *
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="Mazecon\TopicBundle\Repository\UserRepository")
+ * @UniqueEntity(fields="username", message="Ce nom d'utilisateur existe déja, choisissez un autre")
  */
 class User
 {
@@ -25,30 +28,38 @@ class User
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255)
+     * @ORM\Column(name="firstname", type="string", length=255)
      */
-    protected $name;
+    protected $firstname;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="lastName", type="string", length=255, nullable=true)
+     * @ORM\Column(name="lastname", type="string", length=255, nullable=true)
      */
-    protected $lastName;
+    protected $lastname;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="photo", type="string", length=255, nullable=true)
+     * @ORM\Column(name="username", type="string", length=50)
+     */
+    protected $username;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="photo", type="string", length=255)
      */
     protected $photo;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="birthday", type="date")
+     * @ORM\Column(name="birthdate", type="date")
      */
-    protected $birthday;
+    protected $birthdate;
 
     /**
      * @var
@@ -73,52 +84,30 @@ class User
         return $this->id;
     }
 
+
+
     /**
-     * Set name
+     * Set lastname
      *
-     * @param string $name
+     * @param string $lastname
      *
      * @return User
      */
-    public function setName($name)
+    public function setLastname($lastname)
     {
-        $this->name = $name;
+        $this->lastname = $lastname;
 
         return $this;
     }
 
     /**
-     * Get name
+     * Get lastname
      *
      * @return string
      */
-    public function getName()
+    public function getLastname()
     {
-        return $this->name;
-    }
-
-    /**
-     * Set lastName
-     *
-     * @param string $lastName
-     *
-     * @return User
-     */
-    public function setLastName($lastName)
-    {
-        $this->lastName = $lastName;
-
-        return $this;
-    }
-
-    /**
-     * Get lastName
-     *
-     * @return string
-     */
-    public function getLastName()
-    {
-        return $this->lastName;
+        return $this->lastname;
     }
 
     /**
@@ -169,29 +158,7 @@ class User
         return $this->photo;
     }
 
-    /**
-     * Set birthday
-     *
-     * @param \DateTime $birthday
-     *
-     * @return User
-     */
-    public function setBirthday($birthday)
-    {
-        $this->birthday = $birthday;
 
-        return $this;
-    }
-
-    /**
-     * Get birthday
-     *
-     * @return \DateTime
-     */
-    public function getBirthday()
-    {
-        return $this->birthday;
-    }
     /**
      * Constructor
      */
@@ -256,5 +223,53 @@ class User
     public function getUserFos()
     {
         return $this->userFos;
+    }
+
+    /**
+     * Set birthdate
+     *
+     * @param \DateTime $birthdate
+     *
+     * @return User
+     */
+    public function setBirthdate($birthdate)
+    {
+        $this->birthdate = $birthdate;
+
+        return $this;
+    }
+
+    /**
+     * Get birthdate
+     *
+     * @return \DateTime
+     */
+    public function getBirthdate()
+    {
+        return $this->birthdate;
+    }
+
+    /**
+     * Set firstname
+     *
+     * @param string $firstname
+     *
+     * @return User
+     */
+    public function setFirstname($firstname)
+    {
+        $this->firstname = $firstname;
+
+        return $this;
+    }
+
+    /**
+     * Get firstname
+     *
+     * @return string
+     */
+    public function getFirstname()
+    {
+        return $this->firstname;
     }
 }

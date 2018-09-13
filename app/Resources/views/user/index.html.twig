@@ -1,45 +1,80 @@
-{% extends 'base.html.twig' %}
+{% extends 'layout.html.twig' %}
+{% block page_header_breadcrumb_root %}home{% endblock %}
+{% block page_header_breadcrumb_child %}Page header 2{% endblock %}
+{% block page_header_title %}Page header 3{% endblock %}
 
-{% block body %}
-    <h1>Users list</h1>
+{% block dynamic %}
+    <div class="row">
+        {% block siderBarLeft %}
+            {{ include('siderBarLeft/siderbar-left.html.twig',{'id':'1'}) }}
+        {% endblock %}
+        <div class="col-md-9">
+            <section class="panel">
+                <header class="panel-heading">
+                    <h2 class="panel-title">{{ header_title_panel }}</h2>
+                </header>
+                <div class="panel-body">
+                    <table class="table table-bordered table-striped mb-none" id="datatable-user">
+                        <thead>
+                        <tr>
+                            <th>Nom </th>
+                            <th>Prénoms</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% if users is defined %}
+                            {% for user in users %}
+                                <tr class="gradeX">
+                                    <td>{{ user.getName() }}</td>
+                                    <td>{{ user.getLastName() }}</td>
+                                    <td class="actions">
+                                        <a href="{{ path('topic_edit', {'id':topic.getId()}) }}" class="on-default edit-row"><i class="fa fa-pencil"></i></a>
+                                        <a href="#" class="on-default remove-row"><i class="fa fa-trash-o"></i></a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </div>
+{% endblock %}
 
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Lastname</th>
-                <th>Photo</th>
-                <th>Birthday</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for user in users %}
-            <tr>
-                <td><a href="{{ path('user_show', { 'id': user.id }) }}">{{ user.id }}</a></td>
-                <td>{{ user.name }}</td>
-                <td>{{ user.lastName }}</td>
-                <td>{{ user.photo }}</td>
-                <td>{% if user.birthday %}{{ user.birthday|date('Y-m-d') }}{% endif %}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('user_show', { 'id': user.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('user_edit', { 'id': user.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
 
-    <ul>
-        <li>
-            <a href="{{ path('user_new') }}">Create a new user</a>
-        </li>
-    </ul>
+
+
+{% block javascripts_current_page %}
+    <script src="{{ asset('extension/vendor/select2/select2.js') }}" ></script>
+    <script src="{{ asset('extension/vendor/magnific-popup/magnific-popup.js') }}" ></script>
+    <script src="{{ asset('extension/javascripts/theme.js') }}" ></script>
+    <script src="{{ asset('extension/javascripts/theme.custom.js') }}" ></script>
+    <script src="{{ asset('extension/javascripts/theme.init.js') }}" ></script>
+    <script src="{{ asset('extension/vendor/pnotify/pnotify.custom.js') }}" ></script>
+
+
+    <script src="{{ asset('dataTables/datatables.min.js') }}" ></script>
+
+    {# <script src="{{ asset('extension/vendor/jquery-datatables/media/js/jquery.dataTables.js') }}" ></script>
+     <script src="{{ asset('extension/vendor/jquery-datatables-bs3/assets/js/datatables.js') }}" ></script>
+     <script src="{{ asset('extension/javascripts/tables/conge.datatables.js') }}" ></script>#}
+
+    <script>
+        $(document).ready(function(){
+            $('#datatable-topic').DataTable();
+        })
+    </script>
+
+{% endblock %}
+
+{% block css_current_page %}
+    <link rel="stylesheet" href="{{ asset('extension/vendor/select2/select2.css') }}">
+    <link rel="stylesheet" href="{{ asset('extension/vendor/magnific-popup/magnific-popup.css') }}">
+    <link rel="stylesheet" href="{{ asset('extension/vendor/pnotify/pnotify.custom.css') }}">
+
+
+    <link rel="stylesheet" href="{{ asset('dataTables/datatables.min.css') }}">
+    {#<link rel="stylesheet" href="{{ asset('extension/vendor/jquery-datatables-bs3/assets/css/datatables.css') }}">#}
 {% endblock %}

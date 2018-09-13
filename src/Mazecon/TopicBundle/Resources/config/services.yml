@@ -1,4 +1,15 @@
+parameters:
+    mazecon.antispam.ms : service_ms
+
 services:
 #    mazecon_topic.example:
 #        class: Mazecon\TopicBundle\Example
 #        arguments: ["@service_id", "plain_value", "%parameter%"]
+    mazecon.antispam:
+        class: Mazecon\TopicBundle\Service\MazeconAntispam
+        arguments: ["%mazecon.antispam.ms%"]
+    mazecon.response_listener:
+        class: Mazecon\TopicBundle\EventListener\ResponseListener
+        tags:
+            - { name: kernel.event_listener, event: kernel.response, method: onKernelResponse }
+

@@ -1,0 +1,124 @@
+{% extends 'layout.html.twig' %}
+
+{#{% form_theme form 'Default/form_errors_fields.html.twig'%}
+{% form_theme form 'Default/form_errors_fields.html.twig'
+    'Default/form_errors_fields.html.twig'%}#}
+
+{% block page_header_breadcrumb_root %}home{% endblock %}
+{% block page_header_breadcrumb_child %}Page header 2{% endblock %}
+{% block page_header_title %}Page header 3{% endblock %}
+
+{% block dynamic %}
+    <div class="row" id="_user_">
+        {% block siderBarLeft %}
+            {{ include('siderBarLeft/siderbar-left.html.twig',{'id':'1'}) }}
+        {% endblock %}
+        <div class="col-md-9">
+            <section class="panel form-wizard">
+                <header class="panel-heading">
+                    <h2 class="panel-title">{{ header_title_panel }}</h2>
+                </header>
+                <div class="panel-body">
+                    {{ form_start(form, {'attr':{'id':'form', 'class':'validate form-horizontal form-groups-bordered'}})}}
+                    <div class="form-group">
+                        {{ form_label(form.firstname,'Nom', {'label_attr':{'class':'col-md-3 control-label'}}) }}
+                        <div class="col-md-5">
+                            {{ form_widget(form.firstname, {'attr':{'class':'form-control'}}) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.lastname,'Prénoms', {'label_attr':{'class':'col-md-3 control-label'}}) }}
+                        <div class="col-md-5">
+                            {{ form_widget(form.lastname, {'attr':{'class':'form-control'}}) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.username,"Nom d'utilisateur", {'label_attr':{'class':'col-md-3 control-label'}}) }}
+                        <div class="col-md-5">
+                            {{ form_widget(form.username, {'attr':{'class':'form-control'}}) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.birthdate, 'Date de Naissance', {'label_attr':{'class':'col-md-3 control-label'}}) }}
+                        <div class="col-md-4 ">
+                            <div class="input-group">
+                                    <span class="input-group-addon">
+                                         <i class="fa fa-calendar"></i>
+                                    </span>
+                                {{ form_widget(form.birthdate, {'attr':{'class':'form-control', 'data-plugin-masked-input':'' ,'data-input-mask':'99/99/9999'}}) }}
+                                {{ form_errors(form.birthdate) }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Photo d'identité:</label>
+                        <div class="col-sm-5">
+                            <div class="fileinput fileinput-new" data-provides="fileinput">
+                                <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;" data-trigger="fileinput">
+                                    <img src="" alt="...">
+                                </div>
+                                <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px"></div>
+                                <div>
+                                    <span class="btn btn-white btn-file">
+                                        <span class="fileinput-new">Selectionner l'image</span>
+                                        <span class="fileinput-exists">Changer l'image</span>
+                                        {{ form_widget(form.photo, {'attr':{'type':'file','accept':'image/*'}}) }}
+                                        {{ form_errors(form.photo) }}
+                                    </span>
+                                    <a href="#" class="btn btn-orange fileinput-exists" data-dismiss="fileinput">Retirer</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {#{% include 'userRegistrationForm.html.twig' %}#}
+
+                    <div class="form-group">
+                        <div class="col-md-3"></div>
+                        <div class="col-md-5">
+                            {{ form_widget(form.save, {'attr':{'class':'btn btn-primary'}, 'label':'Ajouter'}) }}
+                        </div>
+                    </div>
+                    {{ form_end(form) }}
+                </div>
+            </section>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block javascripts_current_page %}
+
+    <script src="{{ asset('extension/vendor/jquery-ui/js/jquery-ui-1.10.4.custom.js') }}" ></script>
+    <script src="{{ asset('extension/vendor/jquery-ui-touch-punch/jquery.ui.touch-punch.js') }}" ></script>
+    <script src="{{ asset('extension/vendor/select2/select2.js') }}" ></script>
+    <script src="{{ asset('extension/vendor/jquery-placeholder/jquery.placeholder.js') }}" ></script>
+
+    <script src="{{ asset('extension/vendor/bootstrap-tagsinput/bootstrap-tagsinput.js') }}" ></script>
+    <script src="{{ asset('js/fileinput.js') }}" ></script>
+    <script src="{{ asset('extension/vendor/jquery-validation/jquery.validate.js') }}" ></script>
+    <script src="{{ asset('extension/vendor/bootstrap-wizard/jquery.bootstrap.wizard.js') }}" ></script>
+    <script src="{{ asset('extension/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js') }}" ></script>
+    <script src="{{ asset('extension/vendor/bootstrap-maxlength/bootstrap-maxlength.js') }}" ></script>
+    <script src="{{ asset('extension/vendor/pnotify/pnotify.custom.js') }}" ></script>
+
+    <script src="{{ asset('extension/vendor/bootstrap-tagsinput/bootstrap-tagsinput.js') }}" ></script>
+    <script src="{{ asset('extension/vendor/bootstrap-markdown/js/markdown.js') }}" ></script>
+    <script src="{{ asset('extension/vendor/jquery-maskedinput/jquery.maskedinput.js') }}" ></script>
+    <script src="{{ asset('extension/javascripts/theme.custom.js') }}" ></script>
+
+    <script src="{{ asset('extension/javascripts/forms/examples.wizard.js') }}" ></script>
+    <script src="{{ asset('extension/javascripts/forms/examples.validation.js') }}" ></script>
+
+
+{% endblock %}
+
+{% block css_current_page %}
+    <link rel="stylesheet" href="{{ asset('css/form-custom.css') }}">
+    <link rel="stylesheet" href="{{ asset('extension/vendor/pnotify/pnotify.custom.css') }}">
+    <link rel="stylesheet" href="{{ asset('extension/vendor/bootstrap-datepicker/css/datepicker3.css') }}">
+{% endblock %}
+
+
+
+

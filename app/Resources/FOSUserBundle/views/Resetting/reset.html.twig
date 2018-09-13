@@ -1,0 +1,40 @@
+{% extends "@FOSUser/layout.html.twig" %}
+
+{% block page_header_1 %}
+    home
+{% endblock %}
+{% block page_header_2 %}
+    Profile
+{% endblock %}
+{
+{% block fos_user_content %}
+    <div class="row" id="_user_">
+        {% block siderBarLeft %}
+            {{ include('siderBarLeft/siderbar-left.html.twig',{'id':'', 'section1':''}) }}
+        {% endblock %}
+        <div class="col-md-9">
+            <section class="panel form-wizard">
+                <header class="panel-heading">
+                    <h2 class="panel-title">Verifier votre Email</h2>
+                </header>
+                <div class="panel-body">
+                    {% include "@FOSUser/Resetting/reset_content.html.twig" %}
+                </div>
+            </section>
+        </div>
+    </div>
+{% endblock fos_user_content %}
+
+
+{% block javascripts_current_page %}
+    <script src="{{ asset('extension/vendor/select2/select2.js') }}" ></script>
+    <script src="{{ asset('extension/javascripts/theme.js') }}" ></script>
+    <script src="{{ asset('extension/javascripts/theme.custom.js') }}" ></script>
+    <script src="{{ asset('extension/javascripts/theme.init.js') }}" ></script>
+    <script src="{{ asset('extension/vendor/pnotify/pnotify.custom.js') }}" ></script>
+{% endblock %}
+
+{% block css_current_page %}
+    <link rel="stylesheet" href="{{ asset('extension/vendor/select2/select2.css') }}">
+    <link rel="stylesheet" href="{{ asset('extension/vendor/pnotify/pnotify.custom.css') }}">
+{% endblock %}

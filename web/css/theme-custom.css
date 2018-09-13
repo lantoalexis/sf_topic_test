@@ -86,10 +86,10 @@
     border-radius: 2px;
     color: #b4b4b4;
     font-size: 14px;
-    height: 24px;
     line-height: 24px;
     text-align: center;
-    width: 24px;
+    /*width: 24px;*/
+    /*height: 24px;*/
 }
 
 .panel-actions a:hover {
@@ -136,4 +136,237 @@
 
 .mfp-container {
     text-align: center;
+}
+
+.img-thumbnail-custom img {
+    max-width: 30px;
+}
+
+
+
+
+
+.modal-block {
+    background: transparent;
+    padding: 0;
+    text-align: left;
+    max-width: 600px;
+    margin: 40px auto;
+    position: relative;
+}
+
+.modal-block.modal-block-xs {
+    max-width: 200px;
+}
+
+.modal-block.modal-block-sm {
+    max-width: 400px;
+}
+
+.modal-block.modal-block-md {
+    max-width: 600px;
+}
+
+.modal-block.modal-block-lg {
+    max-width: 900px;
+}
+
+.modal-block.modal-block-full {
+    max-width: 98%;
+}
+
+.modal-block.modal-header-color .panel-heading h2 {
+    color: #FFF;
+}
+
+.modal-block.modal-full-color {
+    color: #FFF;
+}
+
+.modal-block.modal-full-color .panel-heading {
+    border: 0;
+}
+
+.modal-block.modal-full-color .panel-heading h2 {
+    color: #FFF;
+}
+
+.modal-block.modal-full-color .panel-footer {
+    border: 0;
+}
+
+.modal-block.modal-full-color .panel-body {
+    background-color: transparent;
+}
+
+.modal-block.modal-full-color .fa {
+    color: #FFF !important;
+}
+
+
+/* Modal Wrapper */
+.modal-wrapper {
+    position: relative;
+    padding: 25px 0;
+}
+
+/* Modal Icon */
+.modal-icon {
+    float: left;
+    width: 20%;
+    text-align: center;
+}
+
+.modal-icon .fa {
+    font-size: 52px;
+    position: relative;
+    top: -10px;
+    color: #cccccc;
+}
+
+.modal-icon.center {
+    float: none;
+    width: auto;
+    padding-top: 20px;
+}
+
+.modal-icon.center + .modal-text {
+    float: none;
+    width: auto;
+}
+
+.modal-icon + .modal-text {
+    float: left;
+    width: 80%;
+}
+
+/* Modal Text */
+.modal-text {
+    padding: 0 5px;
+}
+
+.modal-text h1, .modal-text h2, .modal-text h3, .modal-text h4, .modal-text h5, .modal-text h6 {
+    padding: 0;
+    margin: -7px 0 4px 0;
+}
+
+
+.modal-block-primary .fa {
+    color: #cccccc;
+}
+
+.modal-block-primary.modal-header-color .panel-heading {
+    background-color: #cccccc;
+}
+
+.modal-block-primary.modal-full-color .panel {
+    background-color: #e0e0e0;
+}
+
+.modal-block-primary.modal-full-color .panel-heading {
+    background-color: #cccccc;
+}
+
+.modal-block-primary.modal-full-color .panel-footer {
+    background-color: #e0e0e0;
+}
+
+.modal-block-success .fa {
+    color: #47a447;
+}
+
+.modal-block-success.modal-header-color .panel-heading {
+    background-color: #47a447;
+}
+
+.modal-block-success.modal-full-color .panel {
+    background-color: #5cb85c;
+}
+
+.modal-block-success.modal-full-color .panel-heading {
+    background-color: #47a447;
+}
+
+.modal-block-success.modal-full-color .panel-footer {
+    background-color: #5cb85c;
+}
+
+.modal-block-warning .fa {
+    color: #ed9c28;
+}
+
+.modal-block-warning.modal-header-color .panel-heading {
+    background-color: #ed9c28;
+}
+
+.modal-block-warning.modal-full-color .panel {
+    background-color: #f0ad4e;
+}
+
+.modal-block-warning.modal-full-color .panel-heading {
+    background-color: #ed9c28;
+}
+
+.modal-block-warning.modal-full-color .panel-footer {
+    background-color: #f0ad4e;
+}
+
+.modal-block-danger .fa {
+    color: #d2322d;
+}
+
+.modal-block-danger.modal-header-color .panel-heading {
+    background-color: #d2322d;
+}
+
+.modal-block-danger.modal-full-color .panel {
+    background-color: #d9534f;
+}
+
+.modal-block-danger.modal-full-color .panel-heading {
+    background-color: #d2322d;
+}
+
+.modal-block-danger.modal-full-color .panel-footer {
+    background-color: #d9534f;
+}
+
+.modal-block-info .fa {
+    color: #5bc0de;
+}
+
+.modal-block-info.modal-header-color .panel-heading {
+    background-color: #5bc0de;
+}
+
+.modal-block-info.modal-full-color .panel {
+    background-color: #7dcde5;
+}
+
+.modal-block-info.modal-full-color .panel-heading {
+    background-color: #5bc0de;
+}
+
+.modal-block-info.modal-full-color .panel-footer {
+    background-color: #7dcde5;
+}
+
+.modal-block-dark .fa {
+    color: #171717;
+}
+
+.modal-block-dark.modal-header-color .panel-heading {
+    background-color: #171717;
+}
+
+.modal-block-dark.modal-full-color .panel {
+    background-color: #2b2b2b;
+}
+
+.modal-block-dark.modal-full-color .panel-heading {
+    background-color: #171717;
+}
+
+.modal-block-dark.modal-full-color .panel-footer {
+    background-color: #2b2b2b;
 }

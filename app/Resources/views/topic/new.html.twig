@@ -1,16 +1,67 @@
 {% extends 'layout.html.twig' %}
 
+{#{% form_theme form 'Default/form_errors_fields.html.twig'%}
+{% form_theme form 'Default/form_errors_fields.html.twig'
+    'Default/form_errors_fields.html.twig'%}#}
+
+{% block page_header_breadcrumb_root %}home{% endblock %}
+{% block page_header_breadcrumb_child %}Page header 2{% endblock %}
+{% block page_header_title %}Page header 3{% endblock %}
+
 {% block dynamic %}
-    <h1>Topic creation</h1>
+    <div class="row" id="_user_">
+        {% block siderBarLeft %}
+            {{ include('siderBarLeft/siderbar-left.html.twig',{'id':'1'}) }}
+        {% endblock %}
+        <div class="col-md-9">
+            <section class="panel form-wizard">
+                <header class="panel-heading">
+                    <h2 class="panel-title">{{ header_title_panel }}</h2>
+                </header>
+                <div class="panel-body">
+                    {{ form_start(form, {'attr':{'id':'form', 'class':'validate form-horizontal form-groups-bordered'}})}}
+                    <div class="form-group">
+                        {{ form_label(form.title,'Titre Topic', {'label_attr':{'class':'col-md-3 control-label'}}) }}
+                        <div class="col-md-5">
+                            {{ form_widget(form.title, {'attr':{'class':'form-control'}}) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.user,'Auteur', {'label_attr':{'class':'col-md-3 control-label'}}) }}
+                        <div class="col-md-5">
+                            {{ form_widget(form.user, {'attr':{'class':'form-control'}}) }}
+                        </div>
+                    </div>
 
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="Create" />
-    {{ form_end(form) }}
-
-    <ul>
-        <li>
-            <a href="{{ path('topic_index') }}">Back to the list</a>
-        </li>
-    </ul>
+                    <div class="form-group">
+                        <div class="col-md-3"></div>
+                        <div class="col-md-5">
+                            {{ form_widget(form.save, {'attr':{'class':'btn btn-primary'}, 'label':'Ajouter'}) }}
+                        </div>
+                    </div>
+                    {{ form_end(form) }}
+                </div>
+            </section>
+        </div>
+    </div>
 {% endblock %}
+
+
+{% block javascripts_current_page %}
+
+    <script src="{{ asset('extension/vendor/jquery-validation/jquery.validate.js') }}" ></script>
+    <script src="{{ asset('extension/vendor/jquery-maskedinput/jquery.maskedinput.js') }}" ></script>
+    <script src="{{ asset('extension/vendor/bootstrap-maxlength/bootstrap-maxlength.js') }}" ></script>
+    <script src="{{ asset('extension/vendor/pnotify/pnotify.custom.js') }}" ></script>
+    <script src="{{ asset('extension/javascripts/forms/examples.validation.js') }}" ></script>
+
+
+{% endblock %}
+
+{% block css_current_page %}
+    <link rel="stylesheet" href="{{ asset('extension/vendor/pnotify/pnotify.custom.css') }}">
+{% endblock %}
+
+
+
+

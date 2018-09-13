@@ -54,12 +54,23 @@
 															<i class="fa fa-home"></i> Home
 														</a>
 													</li>
-													<li class="dropdown _personnel_">
-														<a class="dropdown-toggle" href="#">Topic</a>
+													<li class="dropdown ">
+														<a class="dropdown-toggle" href="{{ path('topic_index') }}">Topic</a>
 														<ul class="dropdown-menu">
 															<li><a href="{{ path('topic_index') }}">Topic</a></li>
-															<li><a href="{{ path('topic_new') }}">Add Topic</a></li>
+															<li><a href="{{ path('topic_new') }}">Ajouter Topic</a></li>
 														</ul>
+													</li>
+													<li class="dropdown ">
+														<a class="dropdown-toggle" href="{{ path('user_index') }}">Utilisateur</a>
+														<ul class="dropdown-menu">
+															<li><a href="{{ path('user_index') }}">Utilisateur</a></li>
+															<li><a href="{{ path('user_new') }}">Ajouter Utilisateur</a></li>
+														</ul>
+													</li>
+													<li class="dropdown ">
+														<a class="dropdown" href="{{ path('topicuserview_index') }}">Utilisateur vu topic</a>
+
 													</li>
 													{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
 														{% set user = app.user %}
@@ -71,11 +82,11 @@
 																		<div class="row">
 																			<div class="col-md-8">
 																				<div class="user-avatar">
-                                                                                    {#{% if user is not empty %}
+                                                                                   {# {% if user is not empty %}
                                                                                         <div class="img-thumbnail">
-                                                                                            <img src="{{ asset('photos/382o429dcpk4csw0og4kggg8484gc88/' ~ user.photo) }}" alt="">
+                                                                                            <img src="{{ asset(PHOTO_PATH~'/'~ user.photo) }}" alt="">
                                                                                         </div>
-                                                                                        <p><strong>{{ user.name }} {{ user.lastName }}</strong><span>{{ user.username }}}</span></p>
+                                                                                        <p><strong>{{ user.firstname }} {{ user.lastname }}</strong><span>{{ user.username }}}</span></p>
                                                                                     {% endif %}#}
 																				</div>
 																			</div>
@@ -116,14 +127,14 @@
 						<div class="row">
 							<div class="col-md-12">
 								<ul class="breadcrumb">
-									<li><a href="#">{% block page_header_1 %}{% endblock %}</a></li>
-									<li class="active">{% block page_header_category %}{% endblock %}</li>
+									<li><a href="#">{% block page_header_breadcrumb_root %}{% endblock %}</a></li>
+									<li class="active">{% block page_header_breadcrumb_child %}{% endblock %}</li>
 								</ul>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-md-12">
-								<h1>{% block page_header_3 %}{% endblock %}</h1>
+								<h1>{% block page_header_title %}{% endblock %}</h1>
 							</div>
 						</div>
 					</div>
@@ -155,7 +166,7 @@
 							<div class="contact-details">
 								<h4>Contact</h4>
 								<ul class="contact">
-									<li><p><i class="fa fa-map-marker"></i> <strong>Address:</strong> Antaninarenina, Antananarivo 101, Madagascar</p></li>
+									<li><p><i class="fa fa-map-marker"></i> <strong>Address:</strong> Mahatony, Antananarivo 101, Madagascar</p></li>
 									<li><p><i class="fa fa-phone"></i> <strong>Phone:</strong> +261 22 123 45</p></li>
 									<li><p><i class="fa fa-envelope"></i> <strong>Email:</strong> <a href="mailto:dsi@midsp.gov.mg">contact@maze.mg </a>
 								</ul>
@@ -167,7 +178,7 @@
 					<div class="container">
 						<div class="row">
 							<div class="col-md-12">
-								<p class="copyright_">© Copyright 2016 Maze. All Rights Reserved.</p>
+								<p class="copyright_">© Copyright 2018 Mazecon. All Rights Reserved.</p>
 								<p class="madeBy_">Made by <a href="http://www.mazecon.dev" target="_blank">Mazecon</a></p>
 							</div>
 						</div>
@@ -177,6 +188,7 @@
 		</footer>
         {#********************************* End of Footer **************************************#}
 
+        {#******************************* Confirm Dialog Box ***********************************#}
 		<div id="dialog" class="modal-block mfp-hide">
 			<section class="panel">
 				<header class="panel-heading">

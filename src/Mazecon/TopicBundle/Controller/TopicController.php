@@ -2,9 +2,11 @@
 
 namespace Mazecon\TopicBundle\Controller;
 
+use Mazecon\TopicBundle\Controller\Common;
 use Mazecon\TopicBundle\Entity\Topic;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -13,7 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
  *
  * @Route("topic")
  */
-class TopicController extends Controller
+class TopicController extends Common
 {
     /**
      * Lists all topic entities.
@@ -29,6 +31,8 @@ class TopicController extends Controller
 
         return $this->render('topic/index.html.twig', array(
             'topics' => $topics,
+            'header_title_panel' => "Liste des Topics",
+
         ));
     }
 
@@ -49,30 +53,17 @@ class TopicController extends Controller
             $em->persist($topic);
             $em->flush();
 
-            return $this->redirectToRoute('topic_show', array('id' => $topic->getId()));
+            return $this->redirectToRoute('topic_index', array('id' => $topic->getId()));
         }
 
         return $this->render('topic/new.html.twig', array(
             'topic' => $topic,
+            'header_title_panel' => "Ajouter Topic",
             'form' => $form->createView(),
         ));
     }
 
-    /**
-     * Finds and displays a topic entity.
-     *
-     * @Route("/{id}", name="topic_show")
-     * @Method("GET")
-     */
-    public function showAction(Topic $topic)
-    {
-        $deleteForm = $this->createDeleteForm($topic);
 
-        return $this->render('topic/show.html.twig', array(
-            'topic' => $topic,
-            'delete_form' => $deleteForm->createView(),
-        ));
-    }
 
     /**
      * Displays a form to edit an existing topic entity.
@@ -89,12 +80,13 @@ class TopicController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('topic_edit', array('id' => $topic->getId()));
+            return $this->redirectToRoute('topic_index', array('id' => $topic->getId()));
         }
 
         return $this->render('topic/edit.html.twig', array(
             'topic' => $topic,
-            'edit_form' => $editForm->createView(),
+            'header_title_panel' => "Editer Topic",
+            'form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
     }
@@ -102,18 +94,30 @@ class TopicController extends Controller
     /**
      * Deletes a topic entity.
      *
-     * @Route("/{id}", name="topic_delete")
+     * @Route("/delete", name="topic_delete")
      * @Method("DELETE")
      */
-    public function deleteAction(Request $request, Topic $topic)
+    public function deleteAction(Request $request)
     {
-        $form = $this->createDeleteForm($topic);
-        $form->handleRequest($request);
+        if($request->getMethod() == 'POST' && $request->isXmlHttpRequest()) {
 
-        if ($form->isSubmitted() && $form->isValid()) {
+            $id_topic = $request->get('id');
+
             $em = $this->getDoctrine()->getManager();
-            $em->remove($topic);
-            $em->flush();
+            $topic = $em->getRepository('MazeconTopicBundle:Topic')
+                ->findOneById($id_topic);
+
+            if($topic){
+                $em->remove($topic);
+                $em->flush();
+
+                $response = new Response(json_encode(array('topic'=>$topic)));
+                $response->headers->set('Content-Type', 'application/json');
+
+                return $response;
+
+            }
+
         }
 
         return $this->redirectToRoute('topic_index');
@@ -133,5 +137,21 @@ class TopicController extends Controller
             ->setMethod('DELETE')
             ->getForm()
         ;
+    }
+
+    /**
+     * Finds and displays a topic entity.
+     *
+     * @Route("/{id}", name="topic_show")
+     * @Method("GET")
+     */
+    public function showAction(Topic $topic)
+    {
+        $deleteForm = $this->createDeleteForm($topic);
+
+        return $this->render('topic/show.html.twig', array(
+            'topic' => $topic,
+            'delete_form' => $deleteForm->createView(),
+        ));
     }
 }

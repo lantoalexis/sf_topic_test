@@ -2,17 +2,19 @@
 
 namespace Mazecon\TopicBundle\Controller;
 
+use Mazecon\TopicBundle\Controller\Common;
 use Mazecon\TopicBundle\Entity\TopicUserView;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Topicuserview controller.
  *
  * @Route("topicuserview")
  */
-class TopicUserViewController extends Controller
+class TopicUserViewController extends Common
 {
     /**
      * Lists all topicUserView entities.
