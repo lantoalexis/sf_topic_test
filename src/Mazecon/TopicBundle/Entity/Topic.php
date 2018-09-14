@@ -35,6 +35,23 @@ class Topic
      */
     private $user;
 
+    /**
+     * @var
+     * @ORM\OneToMany(targetEntity="TopicUserView", mappedBy="topic")
+     */
+    protected $usersView;
+
+
+//    /**
+//     * @var
+//     * @ORM\ManyToMany(targetEntity="User", inversedBy="topics")
+//     * @ORM\JoinTable(name="user_view_topic,
+//     *     joinColumns={@ORM\JoinColumn(name="topic_id", referencedColumnName="id")},
+//     *     inverseJoinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")}
+//     *     )
+//     */
+//    private $users;
+
 
     /**
      * Get id
@@ -93,5 +110,47 @@ class Topic
     public function getTitle()
     {
         return $this->title;
+    }
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->usersView = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add usersView
+     *
+     * @param \Mazecon\TopicBundle\Entity\TopicUserView $usersView
+     *
+     * @return Topic
+     */
+    public function addUsersView(\Mazecon\TopicBundle\Entity\TopicUserView $usersView)
+    {
+        $this->usersView[] = $usersView;
+
+        return $this;
+    }
+
+    /**
+     * Remove usersView
+     *
+     * @param \Mazecon\TopicBundle\Entity\TopicUserView $usersView
+     */
+    public function removeUsersView(\Mazecon\TopicBundle\Entity\TopicUserView $usersView)
+    {
+        $this->usersView->removeElement($usersView);
+    }
+
+    /**
+     * Get usersView
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getUsersView()
+    {
+        return $this->usersView;
     }
 }

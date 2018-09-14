@@ -3,6 +3,7 @@
 namespace Mazecon\TopicBundle\Controller;
 
 use Mazecon\TopicBundle\Controller\Common;
+use Mazecon\TopicBundle\Entity\Topic;
 use Mazecon\TopicBundle\Entity\TopicUserView;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -26,43 +27,55 @@ class TopicUserViewController extends Common
     {
         $em = $this->getDoctrine()->getManager();
 
-        $topicUserViews = $em->getRepository('MazeconTopicBundle:TopicUserView')->findAll();
+        $usersViewTopic = new TopicUserView();
+
+        $topics = $em->getRepository('MazeconTopicBundle:Topic')->findAll();
 
         return $this->render('topicuserview/index.html.twig', array(
-            'topicUserViews' => $topicUserViews,
+            'topics' => $topics,
+            'header_title_panel' => "Liste des Topics",
         ));
     }
 
     /**
      * Creates a new topicUserView entity.
      *
-     * @Route("/new", name="topicuserview_new")
+     * @Route("/{id}/new", name="topicuserview_new")
      * @Method({"GET", "POST"})
      */
-    public function newAction(Request $request)
+    public function newAction(Request $request, $id)
     {
-        $topicUserView = new Topicuserview();
-        $form = $this->createForm('Mazecon\TopicBundle\Form\TopicUserViewType', $topicUserView);
+        $em = $this->getDoctrine()->getManager();
+        $topic = $em->getRepository('MazeconTopicBundle:Topic')
+            ->findOneById($id);
+        $form = $this->createForm('Mazecon\TopicBundle\Form\TopicUserViewType', $topic);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->persist($topicUserView);
+
+            $usersView = $form->get('usersView')->getData();
+
+            $topic->addUsersView($usersView);
+
+            $em->persist($topic);
             $em->flush();
 
-            return $this->redirectToRoute('topicuserview_show', array('id' => $topicUserView->getId()));
+            return $this->redirectToRoute('topic_index');
         }
 
-        return $this->render('topicuserview/new.html.twig', array(
-            'topicUserView' => $topicUserView,
+        return $this->render('topic/new.html.twig', array(
+            'topic' => $topic,
+            'header_title_panel' => "Ajouter Topic",
             'form' => $form->createView(),
         ));
     }
 
+
     /**
      * Finds and displays a topicUserView entity.
      *
-     * @Route("/{id}", name="topicuserview_show")
+     * @Route("/{id}/show", name="topicuserview_show")
      * @Method("GET")
      */
     public function showAction(TopicUserView $topicUserView)
@@ -103,7 +116,7 @@ class TopicUserViewController extends Common
     /**
      * Deletes a topicUserView entity.
      *
-     * @Route("/{id}", name="topicuserview_delete")
+     * @Route("/{id}/delete", name="topicuserview_delete")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, TopicUserView $topicUserView)
@@ -135,4 +148,6 @@ class TopicUserViewController extends Common
             ->getForm()
         ;
     }
+
+
 }

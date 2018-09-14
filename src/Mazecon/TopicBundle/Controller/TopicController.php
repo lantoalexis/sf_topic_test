@@ -4,6 +4,7 @@ namespace Mazecon\TopicBundle\Controller;
 
 use Mazecon\TopicBundle\Controller\Common;
 use Mazecon\TopicBundle\Entity\Topic;
+use Mazecon\TopicBundle\Entity\TopicUserView;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Response;
@@ -50,7 +51,13 @@ class TopicController extends Common
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+
+            $userViewTopic = new TopicUserView();
+            $userViewTopic->setTopic($topic);
+            $userViewTopic->setUser($topic->getUser());
+
             $em->persist($topic);
+            $em->persist($userViewTopic);
             $em->flush();
 
             return $this->redirectToRoute('topic_index', array('id' => $topic->getId()));
@@ -154,4 +161,5 @@ class TopicController extends Common
             'delete_form' => $deleteForm->createView(),
         ));
     }
+
 }

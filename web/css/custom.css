@@ -19,3 +19,12 @@ p.madeBy_{
 ul.form_error{
     color:red;
 }
+
+
+h2.panel-title {
+    display: inline;
+}
+
+.dt-center {
+    text-align: center;
+}

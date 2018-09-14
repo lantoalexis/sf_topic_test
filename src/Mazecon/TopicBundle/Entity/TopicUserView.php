@@ -24,7 +24,7 @@ class TopicUserView
     /**
      * @var \stdClass
      *
-     * @ORM\ManyToOne(targetEntity="Topic")
+     * @ORM\ManyToOne(targetEntity="Topic", inversedBy="usersView")
      * @ORM\JoinColumn(name="topic_id", referencedColumnName="id")
      */
     private $topic;
@@ -32,7 +32,7 @@ class TopicUserView
     /**
      * @var \stdClass
      *
-     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="usersView")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     private $user;

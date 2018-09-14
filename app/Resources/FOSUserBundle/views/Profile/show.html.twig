@@ -1,13 +1,12 @@
 {% extends "@FOSUser/layout.html.twig" %}
-{% block page_header_1 %}
-    home
-{% endblock %}
-{% block page_header_2 %}
-    Profile
-{% endblock %}
-{% block page_header_3 %}
-    {{ app.user.username }}
-{% endblock %}
+{#{% form_theme form 'Default/form_errors_fields.html.twig'%}
+{% form_theme form 'Default/form_errors_fields.html.twig'
+    'Default/form_errors_fields.html.twig'%}#}
+
+{% block page_header_breadcrumb_root %}home{% endblock %}
+{% block page_header_breadcrumb_child %}Page header 2{% endblock %}
+{% block page_header_title %}Page header 3{% endblock %}
+
 
 {% block fos_user_content %}
 {% include "@FOSUser/Profile/show_content.html.twig" %}

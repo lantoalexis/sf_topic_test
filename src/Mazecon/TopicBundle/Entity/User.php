@@ -69,6 +69,12 @@ class User
 
     /**
      * @var
+     * @ORM\OneToMany(targetEntity="TopicUserView", mappedBy="user")
+     */
+    protected $usersView;
+
+    /**
+     * @var
      * @ORM\OneToOne(targetEntity="UserFos", mappedBy="user", cascade={"remove", "persist"})
      */
     protected $userFos;
@@ -271,5 +277,39 @@ class User
     public function getFirstname()
     {
         return $this->firstname;
+    }
+
+    /**
+     * Add usersView
+     *
+     * @param \Mazecon\TopicBundle\Entity\TopicUserView $usersView
+     *
+     * @return User
+     */
+    public function addUsersView(\Mazecon\TopicBundle\Entity\TopicUserView $usersView)
+    {
+        $this->usersView[] = $usersView;
+
+        return $this;
+    }
+
+    /**
+     * Remove usersView
+     *
+     * @param \Mazecon\TopicBundle\Entity\TopicUserView $usersView
+     */
+    public function removeUsersView(\Mazecon\TopicBundle\Entity\TopicUserView $usersView)
+    {
+        $this->usersView->removeElement($usersView);
+    }
+
+    /**
+     * Get usersView
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getUsersView()
+    {
+        return $this->usersView;
     }
 }

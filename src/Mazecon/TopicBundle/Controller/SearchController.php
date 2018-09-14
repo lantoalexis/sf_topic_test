@@ -15,6 +15,7 @@
  {
      const SEARCH_NOT_FOUND_MSG  = "Aucun résultat trouvé.";
      public static $userResult = array();
+     public static $topicResult = array();
      /**
       * @param Request $request
       * @Route("/", name="search_page")
@@ -24,20 +25,31 @@
              $content = $request->get('search');
              $requestTrimed = trim(strtolower($content));
              if (strstr($requestTrimed, " ")) {
+
                  $req_tab = explode(" ", $requestTrimed);
                  $em = $this->getDoctrine()->getManager();
                  $users = $em->getRepository('MazeconTopicBundle:User')->findAll();
+                 $topics = $em->getRepository('MazeconTopicBundle:Topic')->findAll();
+
 
                  foreach ($req_tab as $requestTrimed) {
-                     foreach ($users as $u) {
-                         $this->firstnameUserSearch($requestTrimed, $u);
-                         $this->lastNameUserSearch($requestTrimed, $u);
+                     foreach ($users as $user) {
+                         $this->firstnameUserSearch($requestTrimed, $user);
+                         $this->lastnameUserSearch($requestTrimed, $user);
+                     }
+
+                     foreach ($topics as $topic){
+                         $this->titleTopicSearch($requestTrimed, $topic);
                      }
                  }
-                 if (count(SearchController::$userResult) > 0) {
-//                    print_r(SearchController::$userResult);
+
+
+                 if (count(SearchController::$userResult) > 0 || count(SearchController::$topicResult) > 0) {
+
                      return $this->render('Search/searchResult.html.twig',
-                         array('users' => SearchController::$userResult,
+                         array(
+                             'users' => SearchController::$userResult,
+                             'topics' => SearchController::$topicResult,
                              'request' => $content ));
                  } else {
                      return $this->render('Search/searchNotFound.html.twig',
@@ -49,15 +61,23 @@
              }
              else if(preg_match('#^[a-zA-Z]{4,}#', $requestTrimed)){
                  $em = $this->getDoctrine()->getManager();
-                 $users = $em->getRepository('TestPersonnalBundle:user')->findAll();
+                 $users = $em->getRepository('MazeconTopicBundle:user')->findAll();
+                 $topics = $em->getRepository('MazeconTopicBundle:topic')->findAll();
+
                  foreach ($users as $u) {
                      $this->firstnameUserSearch($requestTrimed, $u);
                      $this->lastnameUserSearch($requestTrimed, $u);
                  }
-                 if (count(SearchController::$userResult) > 0) {
-//                    print_r(SearchController::$userResult);
+
+                 foreach ($topics as $topic){
+                     $this->titleTopicSearch($requestTrimed, $topic);
+                 }
+
+                 if (count(SearchController::$userResult) > 0 || count(SearchController::$topicResult) > 0) {
                      return $this->render('Search/searchResult.html.twig',
-                         array('users' => SearchController::$userResult,
+                         array(
+                             'users' => SearchController::$userResult,
+                             'topics' => SearchController::$topicResult,
                              'request' => $content ));
                  } else {
                      return $this->render('Search/searchNotFound.html.twig',
@@ -82,25 +102,42 @@
      }
 
      public function firstnameUserSearch($request, $user){
-         if(stristr($user->getNom(), $request)){
+         if(stristr($user->getFirstname(), $request)){
              foreach (SearchController::$userResult as $u) {
-                 if($u->getId() == $user->getId()) return null;
+                 if($u->getId() == $user->getId())
+                     return null;
              }
              array_push(SearchController::$userResult,$user);
+
              return 0;
          }
-         else return null;
+         return null;
      }
 
      public function lastnameUserSearch($request, $user){
-         if(stristr($user->getPrenom(), $request)){
+         if(stristr($user->getLastname(), $request)){
              foreach (SearchController::$userResult as $u) {
-                 if($u->getId() == $user->getId()) return null;
+                 if($u->getId() == $user->getId())
+                     return null;
              }
              array_push(SearchController::$userResult,$user);
+
              return 0;
          }
-         else return null;
+         return null;
+     }
+
+     public function titleTopicSearch($request, $topic){
+         if(stristr($topic->getTitle(), $request)){
+             foreach (SearchController::$topicResult as $t) {
+                 if($t->getId() == $topic->getId())
+                     return null;
+             }
+             array_push(SearchController::$topicResult,$topic);
+
+             return 0;
+         }
+         return null;
      }
 
  }

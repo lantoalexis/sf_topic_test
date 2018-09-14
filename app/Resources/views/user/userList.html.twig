@@ -31,7 +31,7 @@
                         {% if users is defined %}
                             {% for user in users %}
                                 <tr class="gradeX">
-                                    <td>
+                                    <td class="dt-center">
                                         <div class="img-thumbnail-custom">
                                             <img src="{{ asset(PHOTO_PATH~'/'~ user.photo) }}" alt="">
                                         </div>
@@ -40,7 +40,7 @@
                                     <td>{{ user.getFirstname() }}</td>
                                     <td>{{ user.getLastname() }}</td>
                                     </td>
-                                    <td class="actions">
+                                    <td class="actions dt-center">
                                         <a href="{{ path('user_edit', {'id':user.getId()}) }}" class="on-default edit-row"><i class="fa fa-pencil"></i></a>
                                         <a href="#" class="on-default remove-row"><i class="fa fa-trash-o"></i></a>
                                     </td>

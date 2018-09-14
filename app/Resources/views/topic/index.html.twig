@@ -12,7 +12,7 @@
             <section class="panel">
                 <header class="panel-heading">
                     <div class="panel-actions">
-                        <a href="{{ path('topic_new') }}" class="btn btn-primary fa fa-plus-circle"> Ajouter Topic</a>
+                        <a href="{{ path('topic_new') }}" class="btn btn-primary fa fa-user"> Ajouter Topic</a>
                     </div>
                     <h2 class="panel-title">{{ header_title_panel }}</h2>
                 </header>
@@ -31,16 +31,17 @@
                             {% for topic in topics %}
                                 {% set user = topic.getUser() %}
                                 <tr id="{{ topic.getId() }}" class="gradeX">
-                                    <td>
+                                    <td class="dt-center">
                                         <div class="img-thumbnail-custom">
                                             <img src="{{ asset(PHOTO_PATH~'/'~ user.photo) }}" alt="">
                                         </div>
                                     </td>
                                     <td>{{ user.getUsername() }}</td>
                                     <td>{{ topic.getTitle }}</td>
-                                    <td class="actions">
+                                    <td class="actions dt-center">
                                         <a href="{{ path('topic_edit', {'id':topic.getId()}) }}" class="on-default edit-row"><i class="fa fa-pencil"></i></a>
                                         <a href="#" class="on-default remove-row"><i class="fa fa-trash-o"></i></a>
+                                        <a href="{{ path('topic_show', {'id':topic.getId()}) }}" class="on-default"><i class="fa fa-eye"></i></a>
                                     </td>
                                 </tr>
                             {% endfor %}
