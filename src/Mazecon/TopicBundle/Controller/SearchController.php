@@ -36,6 +36,7 @@
                      foreach ($users as $user) {
                          $this->firstnameUserSearch($requestTrimed, $user);
                          $this->lastnameUserSearch($requestTrimed, $user);
+                         $this->usernameUserSearch($requestTrimed, $user);
                      }
 
                      foreach ($topics as $topic){
@@ -50,16 +51,18 @@
                          array(
                              'users' => SearchController::$userResult,
                              'topics' => SearchController::$topicResult,
+                             'page_header_title' => "Recherche",
                              'request' => $content ));
                  } else {
                      return $this->render('Search/searchNotFound.html.twig',
                          array(
                              'request' => $content,
+                             'page_header_title' => "Recherche",
                              'message' => SearchController::SEARCH_NOT_FOUND_MSG,
                          ));
                  }
              }
-             else if(preg_match('#^[a-zA-Z]{4,}#', $requestTrimed)){
+             else if(preg_match('#^[a-zA-Z]{2,}#', $requestTrimed)){
                  $em = $this->getDoctrine()->getManager();
                  $users = $em->getRepository('MazeconTopicBundle:user')->findAll();
                  $topics = $em->getRepository('MazeconTopicBundle:topic')->findAll();
@@ -67,6 +70,8 @@
                  foreach ($users as $u) {
                      $this->firstnameUserSearch($requestTrimed, $u);
                      $this->lastnameUserSearch($requestTrimed, $u);
+                     $this->usernameUserSearch($requestTrimed, $u);
+
                  }
 
                  foreach ($topics as $topic){
@@ -78,12 +83,14 @@
                          array(
                              'users' => SearchController::$userResult,
                              'topics' => SearchController::$topicResult,
+                             'page_header_title' => "Recherche",
                              'request' => $content ));
                  } else {
                      return $this->render('Search/searchNotFound.html.twig',
                          array(
                              'request' => $content,
                              'message' => SearchController::SEARCH_NOT_FOUND_MSG,
+                             'page_header_title' => "Recherche",
                          ));
                  }
              }
@@ -93,6 +100,7 @@
                      array(
                          'request' => $content,
                          'message' => SearchController::SEARCH_NOT_FOUND_MSG,
+                         'page_header_title' => "Recherche",
                      ));
              }
          }
@@ -139,5 +147,20 @@
          }
          return null;
      }
+
+
+     public function usernameUserSearch($request, $user){
+         if(stristr($user->getUsername(), $request)){
+             foreach (SearchController::$userResult as $u) {
+                 if($u->getId() == $user->getId())
+                     return null;
+             }
+             array_push(SearchController::$userResult,$user);
+
+             return 0;
+         }
+         return null;
+     }
+
 
  }

@@ -1,15 +1,15 @@
 {% extends 'layout.html.twig' %}
 
-{#{% form_theme form 'Default/form_errors_fields.html.twig'%}
+{% form_theme form 'Default/form_errors_fields.html.twig'%}
 {% form_theme form 'Default/form_errors_fields.html.twig'
-    'Default/form_errors_fields.html.twig'%}#}
+    'Default/form_errors_fields.html.twig'%}
 
 {% block page_header_breadcrumb_root %}home{% endblock %}
-{% block page_header_breadcrumb_child %}Page header 2{% endblock %}
-{% block page_header_title %}Page header 3{% endblock %}
+{% block page_header_breadcrumb_child %}{{ page_header_title }}{% endblock %}
+{% block page_header_title %}{{ page_header_title }}{% endblock %}
 
 {% block dynamic %}
-    <div class="row" id="_user_">
+    <div class="row" id="_user_view_topic_">
         {% block siderBarLeft %}
             {{ include('siderBarLeft/siderbar-left.html.twig',{'id':'1'}) }}
         {% endblock %}
@@ -20,16 +20,19 @@
                 </header>
                 <div class="panel-body">
                     {{ form_start(form, {'attr':{'id':'form', 'class':'validate form-horizontal form-groups-bordered'}})}}
+                    {{ form_errors(form) }}
                     <div class="form-group">
                         {{ form_label(form.title,'Titre Topic', {'label_attr':{'class':'col-md-3 control-label'}}) }}
                         <div class="col-md-5">
                             {{ form_widget(form.title, {'attr':{'class':'form-control'}}) }}
+                            {{ form_errors(form.title) }}
                         </div>
                     </div>
                     <div class="form-group">
-                        {{ form_label(form.usersView,'Auteur', {'label_attr':{'class':'col-md-3 control-label'}}) }}
+                        {{ form_label(form.users,'Auteur', {'label_attr':{'class':'col-md-3 control-label'}}) }}
                         <div class="col-md-5">
-                            {{ form_widget(form.usersView, {'attr':{'class':'form-control'}}) }}
+                            {{ form_widget(form.users, {'attr':{'class':'form-control'}}) }}
+                            {{ form_errors(form.users) }}
                         </div>
                     </div>
 

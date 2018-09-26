@@ -3,6 +3,7 @@
 namespace Mazecon\TopicBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Topic
@@ -25,6 +26,14 @@ class Topic
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=255)
+     * @Assert\Length(
+     *     min = 3, minMessage="Ce champ doit contenir au moins {{ limit }} caractères.",
+     *     max = 255, maxMessage="Ce champ doit contenir au plus {{ limit }} caractères.")
+     *
+     * @Assert\Regex(
+     *     pattern="/^\d$/",
+     *     match=false,
+     *     message="Ce champ ne doit pas contenir un nombre.")
      */
     private $title;
 
@@ -33,8 +42,18 @@ class Topic
      * @ORM\ManyToOne(targetEntity="User", inversedBy="topics")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
-
     private $user;
+
+
+    /**
+     * @var
+     * @ORM\ManyToMany(targetEntity="User", inversedBy="topics")
+     * @ORM\JoinTable(name="user_view_topic",
+     *     joinColumns={@ORM\JoinColumn(name="topic_id", referencedColumnName="id", onDelete="CASCADE")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="CASCADE")})
+     */
+
+    private $users;
 
 
     /**
@@ -94,5 +113,48 @@ class Topic
     public function getTitle()
     {
         return $this->title;
+    }
+
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->users = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add user
+     *
+     * @param \Mazecon\TopicBundle\Entity\User $user
+     *
+     * @return Topic
+     */
+    public function addUser(\Mazecon\TopicBundle\Entity\User $user)
+    {
+        $this->users[] = $user;
+
+        return $this;
+    }
+
+    /**
+     * Remove user
+     *
+     * @param \Mazecon\TopicBundle\Entity\User $user
+     */
+    public function removeUser(\Mazecon\TopicBundle\Entity\User $user)
+    {
+        $this->users->removeElement($user);
+    }
+
+    /**
+     * Get users
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getUsers()
+    {
+        return $this->users;
     }
 }

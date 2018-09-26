@@ -1,32 +1,90 @@
 {% extends 'layout.html.twig' %}
+{% block page_header_breadcrumb_root %}home{% endblock %}
+{% block page_header_breadcrumb_child %}{{ page_header_title }}{% endblock %}
+{% block page_header_title %}{{ page_header_title }}{% endblock %}
 
 {% block dynamic %}
-    <h1>Topic</h1>
+    <div class="row" id="_user_view_topic_">
+        {% block siderBarLeft %}
+            {{ include('siderBarLeft/siderbar-left.html.twig',{'id':'1'}) }}
+        {% endblock %}
+        <div class="col-md-9">
+            <section class="panel">
+                <header class="panel-heading">
+                    <div class="panel-actions">
+                        <a href="{{ path('topicuserview_new', {'id':topic.getId()}) }}" class="btn btn-primary fa fa-plus-circle"> Ajouter/Modifier vue</a>
+                    </div>
+                    <h2 class="panel-title">{{ header_title_panel }}</h2>
+                </header>
+                <div class="panel-body">
+                    <h4>Titre: {{ topic.title }}</h4>
+                    <h4>Auteur: {{ topic.user.username }}</h4>
+                    <p>Liste des utilisateurs qui ont vue le topic:</p>
+                    <table class="table table-bordered table-striped mb-none" id="datatable-user">
+                        <thead>
+                        <tr>
+                            <th></th>
+                            <th>Nom d'utilisateur</th>
+                            <th>Nom</th>
+                            <th>Prenoms</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% set users = topic.users %}
+                        {% if users is defined %}
+                            {% for user in users %}
+                                <tr class="gradeX">
+                                    <td class="dt-center">
+                                        <div class="img-thumbnail-custom">
+                                            <img src="{{ asset(PHOTO_PATH~'/'~ user.photo)| imagine_filter('my_thumb_30') }}" alt="">
+                                        </div>
+                                    </td>
+                                    <td>{{ user.getUsername() }}</td>
+                                    <td>{{ user.getFirstname() }}</td>
+                                    <td>{{ user.getLastname() }}</td>
+                                </tr>
+                            {% endfor %}
+                        {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </div>
+{% endblock %}
 
-    <table>
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ topic.id }}</td>
-            </tr>
-            <tr>
-                <th>Title</th>
-                <td>{{ topic.title }}</td>
-            </tr>
-        </tbody>
-    </table>
 
-    <ul>
-        <li>
-            <a href="{{ path('topic_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('topic_edit', { 'id': topic.id }) }}">Edit</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+
+
+{% block javascripts_current_page %}
+    <script src="{{ asset('extension/vendor/select2/select2.js') }}" ></script>
+    <script src="{{ asset('dataTables/datatables.min.js') }}" ></script>
+    <script src="{{ asset('extension/vendor/magnific-popup/magnific-popup.js') }}" ></script>
+
+    <script src="{{ asset('extension/javascripts/theme.js') }}" ></script>
+    <script src="{{ asset('extension/javascripts/theme.custom.js') }}" ></script>
+    <script src="{{ asset('extension/javascripts/theme.init.js') }}" ></script>
+
+    <script src="{{ asset('extension/javascripts/tables/topic.datatables.js') }}" ></script>
+
+    <script src="{{ asset('extension/vendor/pnotify/pnotify.custom.js') }}" ></script>
+    {#<script src="{{ asset('extension/vendor/jquery-datatables/media/js/jquery.dataTables.js') }}" ></script>#}
+    {#<script src="{{ asset('extension/vendor/jquery-datatables-bs3/assets/js/datatables.js') }}" ></script>#}
+
+    <script>
+        $(document).ready(function(){
+            $('#datatable-topic').DataTable();
+        })
+    </script>
+
+{% endblock %}
+
+{% block css_current_page %}
+    <link rel="stylesheet" href="{{ asset('extension/vendor/select2/select2.css') }}">
+    <link rel="stylesheet" href="{{ asset('extension/vendor/pnotify/pnotify.custom.css') }}">
+    <link rel="stylesheet" href="{{ asset('extension/vendor/magnific-popup/magnific-popup.css') }}">
+
+
+    <link rel="stylesheet" href="{{ asset('dataTables/datatables.min.css') }}">
+    {#<link rel="stylesheet" href="{{ asset('extension/vendor/jquery-datatables-bs3/assets/css/datatables.css') }}">#}
 {% endblock %}

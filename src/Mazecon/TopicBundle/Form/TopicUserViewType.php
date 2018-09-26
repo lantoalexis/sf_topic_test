@@ -17,11 +17,11 @@ class TopicUserViewType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('title', TextType::class)
-                ->add('usersView', EntityType::class, array(
+                ->add('users', EntityType::class, array(
                     'class' => 'MazeconTopicBundle:User',
                     'choice_label' => 'username',
                     'multiple' => true,
-                    'expanded' => true
+                    'expanded' => false
                      ))
                 ->add('save', SubmitType::class);
     }/**

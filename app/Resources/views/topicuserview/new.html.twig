@@ -1,16 +1,77 @@
-{% extends 'base.html.twig' %}
+{% extends 'layout.html.twig' %}
 
-{% block body %}
-    <h1>Topicuserview creation</h1>
+{% form_theme form 'Default/form_errors_fields.html.twig'%}
+{% form_theme form 'Default/form_errors_fields.html.twig'
+    'Default/form_errors_fields.html.twig'%}
 
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="Create" />
-    {{ form_end(form) }}
+{% block page_header_breadcrumb_root %}home{% endblock %}
+{% block page_header_breadcrumb_child %}{{ page_header_title }}{% endblock %}
+{% block page_header_title %}{{ page_header_title }}{% endblock %}
 
-    <ul>
-        <li>
-            <a href="{{ path('topicuserview_index') }}">Back to the list</a>
-        </li>
-    </ul>
+{% block dynamic %}
+    <div class="row" id="_user_view_topic_">
+        {% block siderBarLeft %}
+            {{ include('siderBarLeft/siderbar-left.html.twig',{'id':'1'}) }}
+        {% endblock %}
+        <div class="col-md-9">
+            <section class="panel form-wizard">
+                <header class="panel-heading">
+                    <h2 class="panel-title">{{ header_title_panel }}</h2>
+                </header>
+                <div class="panel-body">
+                    {{ form_start(form, {'attr':{'id':'form', 'class':'validate form-horizontal form-groups-bordered'}})}}
+                    {{ form_errors(form) }}
+                    <div class="form-group">
+                        {{ form_label(form.title,'Titre Topic', {'label_attr':{'class':'col-md-3 control-label'}}) }}
+                        <div class="col-md-5">
+                            {{ form_widget(form.title, {'attr':{'class':'form-control'}}) }}
+                            {{ form_errors(form.title) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.users,'Auteur', {'label_attr':{'class':'col-md-3 control-label'}}) }}
+                        <div class="col-md-5">
+                            {{ form_widget(form.users, {'attr':{'class':'form-control', 'data-plugin-multiselect':''}}) }}
+                            {{ form_errors(form.users) }}
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-3"></div>
+                        <div class="col-md-5">
+                            {{ form_widget(form.save, {'attr':{'class':'btn btn-primary'}, 'label':'Ajouter'}) }}
+                        </div>
+                    </div>
+                    {{ form_end(form) }}
+                </div>
+            </section>
+        </div>
+    </div>
 {% endblock %}
+
+
+{% block javascripts_current_page %}
+
+    <script src="{{ asset('extension/vendor/jquery-validation/jquery.validate.js') }}" ></script>
+    <script src="{{ asset('extension/vendor/pnotify/pnotify.custom.js') }}" ></script>
+    <script src="{{ asset('extension/javascripts/forms/examples.validation.js') }}" ></script>
+
+    <script src="{{ asset('extension/vendor/jquery-ui/js/jquery-ui-1.10.4.custom.js') }}" ></script>
+    <script src="{{ asset('extension/vendor/jquery-ui-touch-punch/jquery.ui.touch-punch.js') }}" ></script>
+    <script src="{{ asset('extension/vendor/select2/select2.js') }}" ></script>
+    <script src="{{ asset('extension/vendor/bootstrap-multiselect/bootstrap-multiselect.js') }}" ></script>
+    <script src="{{ asset('extension/javascripts/forms/examples.advanced.form.js') }}" ></script>
+
+
+{% endblock %}
+
+{% block css_current_page %}
+    <link rel="stylesheet" href="{{ asset('extension/vendor/pnotify/pnotify.custom.css') }}">
+    <link rel="stylesheet" href="{{ asset('extension/vendor/jquery-ui/css/ui-lightness/jquery-ui-1.10.4.custom.css') }}">
+    <link rel="stylesheet" href="{{ asset('extension/vendor/select2/select2.css') }}">
+    <link rel="stylesheet" href="{{ asset('extension/vendor/bootstrap-multiselect/bootstrap-multiselect.css') }}">
+{% endblock %}
+
+
+
+

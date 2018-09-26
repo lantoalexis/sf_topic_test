@@ -3,6 +3,7 @@
 namespace Mazecon\TopicBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Topic
@@ -25,6 +26,17 @@ class Topic
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=255)
+     * @Assert\Length(
+     *     min = 3, minMessage="Ce champ doit contenir au moins {{ limit }} caractères.",
+     *     max = 255, maxMessage="Ce champ doit contenir au plus {{ limit }} caractères.")
+     *
+     * @Assert\Regex(
+     *     pattern="/^\d+$/",
+     *     match=false,
+     *     message="Ce champ ne doit pas contenir uniquement un nombre.")
+     *
+     * @Assert\NotBlank(
+     *     message="ce champ ne peut pas être vide.")
      */
     private $title;
 
@@ -35,22 +47,16 @@ class Topic
      */
     private $user;
 
+
     /**
      * @var
-     * @ORM\OneToMany(targetEntity="TopicUserView", mappedBy="topic")
+     * @ORM\ManyToMany(targetEntity="User", inversedBy="topics")
+     * @ORM\JoinTable(name="user_view_topic",
+     *     joinColumns={@ORM\JoinColumn(name="topic_id", referencedColumnName="id", onDelete="CASCADE")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="CASCADE")})
      */
-    protected $usersView;
 
-
-//    /**
-//     * @var
-//     * @ORM\ManyToMany(targetEntity="User", inversedBy="topics")
-//     * @ORM\JoinTable(name="user_view_topic,
-//     *     joinColumns={@ORM\JoinColumn(name="topic_id", referencedColumnName="id")},
-//     *     inverseJoinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")}
-//     *     )
-//     */
-//    private $users;
+    private $users;
 
 
     /**
@@ -112,45 +118,46 @@ class Topic
         return $this->title;
     }
 
+
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->usersView = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->users = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
-     * Add usersView
+     * Add user
      *
-     * @param \Mazecon\TopicBundle\Entity\TopicUserView $usersView
+     * @param \Mazecon\TopicBundle\Entity\User $user
      *
      * @return Topic
      */
-    public function addUsersView(\Mazecon\TopicBundle\Entity\TopicUserView $usersView)
+    public function addUser(\Mazecon\TopicBundle\Entity\User $user)
     {
-        $this->usersView[] = $usersView;
+        $this->users[] = $user;
 
         return $this;
     }
 
     /**
-     * Remove usersView
+     * Remove user
      *
-     * @param \Mazecon\TopicBundle\Entity\TopicUserView $usersView
+     * @param \Mazecon\TopicBundle\Entity\User $user
      */
-    public function removeUsersView(\Mazecon\TopicBundle\Entity\TopicUserView $usersView)
+    public function removeUser(\Mazecon\TopicBundle\Entity\User $user)
     {
-        $this->usersView->removeElement($usersView);
+        $this->users->removeElement($user);
     }
 
     /**
-     * Get usersView
+     * Get users
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getUsersView()
+    public function getUsers()
     {
-        return $this->usersView;
+        return $this->users;
     }
 }

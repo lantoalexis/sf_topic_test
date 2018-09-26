@@ -1,10 +1,10 @@
 {% extends 'layout.html.twig' %}
 {% block page_header_breadcrumb_root %}home{% endblock %}
-{% block page_header_breadcrumb_child %}Page header 2{% endblock %}
-{% block page_header_title %}Page header 3{% endblock %}
+{% block page_header_breadcrumb_child %}{{ page_header_title }}{% endblock %}
+{% block page_header_title %}{{ page_header_title }}{% endblock %}
 
 {% block dynamic %}
-    <div class="row">
+    <div class="row" id="_user_">
         {% block siderBarLeft %}
             {{ include('siderBarLeft/siderbar-left.html.twig',{'id':'1'}) }}
         {% endblock %}
@@ -33,13 +33,12 @@
                                 <tr class="gradeX">
                                     <td class="dt-center">
                                         <div class="img-thumbnail-custom">
-                                            <img src="{{ asset(PHOTO_PATH~'/'~ user.photo) }}" alt="">
+                                            <img src="{{ asset(PHOTO_PATH~'/'~ user.photo)| imagine_filter('my_thumb_30') }}" alt="">
                                         </div>
                                     </td>
                                     <td>{{ user.getUsername() }}</td>
                                     <td>{{ user.getFirstname() }}</td>
                                     <td>{{ user.getLastname() }}</td>
-                                    </td>
                                     <td class="actions dt-center">
                                         <a href="{{ path('user_edit', {'id':user.getId()}) }}" class="on-default edit-row"><i class="fa fa-pencil"></i></a>
                                         <a href="#" class="on-default remove-row"><i class="fa fa-trash-o"></i></a>

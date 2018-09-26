@@ -10,4 +10,9 @@ namespace Mazecon\TopicBundle\Repository;
  */
 class TopicRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findAllOrderedASC(){
+        $queryBuilder = $this->createQueryBuilder('t')
+            ->join('t.user', 'u');
+        return $queryBuilder->getQuery();
+    }
 }

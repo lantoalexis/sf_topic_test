@@ -20,7 +20,10 @@ class UserType extends AbstractType
         $builder->add('firstname', TextType::class)
                 ->add('lastname', TextType::class)
                 ->add('username', TextType::class)
-                ->add('photo', FileType::class, array('data_class' => null))
+                ->add('photo', FileType::class, array(
+                    'data_class' => null,
+                    'required' => false
+                    ))
                 ->add('birthdate', DateType::class, array(
                     'widget' => 'single_text',
                     'html5' => false,

@@ -1,12 +1,12 @@
 {% extends 'layout.html.twig' %}
 
-{#{% form_theme form 'Default/form_errors_fields.html.twig'%}
+{% form_theme form 'Default/form_errors_fields.html.twig'%}
 {% form_theme form 'Default/form_errors_fields.html.twig'
-    'Default/form_errors_fields.html.twig'%}#}
+    'Default/form_errors_fields.html.twig'%}
 
 {% block page_header_breadcrumb_root %}home{% endblock %}
-{% block page_header_breadcrumb_child %}Page header 2{% endblock %}
-{% block page_header_title %}Page header 3{% endblock %}
+{% block page_header_breadcrumb_child %}{{ page_header_title }}{% endblock %}
+{% block page_header_title %}{{ page_header_title }}{% endblock %}
 
 {% block dynamic %}
     <div class="row" id="_user_">
@@ -20,22 +20,26 @@
                 </header>
                 <div class="panel-body">
                     {{ form_start(form, {'attr':{'id':'form', 'class':'validate form-horizontal form-groups-bordered'}})}}
+                    {{ form_errors(form) }}
                     <div class="form-group">
                         {{ form_label(form.firstname,'Nom', {'label_attr':{'class':'col-md-3 control-label'}}) }}
                         <div class="col-md-5">
                             {{ form_widget(form.firstname, {'attr':{'class':'form-control'}}) }}
+                            {{ form_errors(form.firstname) }}
                         </div>
                     </div>
                     <div class="form-group">
                         {{ form_label(form.lastname,'Prénoms', {'label_attr':{'class':'col-md-3 control-label'}}) }}
                         <div class="col-md-5">
                             {{ form_widget(form.lastname, {'attr':{'class':'form-control'}}) }}
+                            {{ form_errors(form.lastname) }}
                         </div>
                     </div>
                     <div class="form-group">
                         {{ form_label(form.username,"Nom d'utilisateur", {'label_attr':{'class':'col-md-3 control-label'}}) }}
                         <div class="col-md-5">
                             {{ form_widget(form.username, {'attr':{'class':'form-control'}}) }}
+                            {{ form_errors(form.username) }}
                         </div>
                     </div>
                     <div class="form-group">
@@ -55,12 +59,12 @@
                         <div class="col-sm-5">
                             <div class="fileinput fileinput-new" data-provides="fileinput">
                                 <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;" data-trigger="fileinput">
-                                    <img src="" alt="...">
+                                    <img src="{{ asset(PHOTO_PATH~'/'~user.photo) }}" alt="...">
                                 </div>
                                 <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px"></div>
                                 <div>
                                     <span class="btn btn-white btn-file">
-                                        <span class="fileinput-new">Selectionner l'image</span>
+                                        <span class="fileinput-new">Modifier l'image</span>
                                         <span class="fileinput-exists">Changer l'image</span>
                                         {{ form_widget(form.photo, {'attr':{'type':'file','accept':'image/*'}}) }}
                                         {{ form_errors(form.photo) }}
@@ -76,7 +80,7 @@
                     <div class="form-group">
                         <div class="col-md-3"></div>
                         <div class="col-md-5">
-                            {{ form_widget(form.save, {'attr':{'class':'btn btn-primary'}, 'label':'Ajouter'}) }}
+                            {{ form_widget(form.save, {'attr':{'class':'btn btn-primary'}, 'label':'Modifier'}) }}
                         </div>
                     </div>
                     {{ form_end(form) }}

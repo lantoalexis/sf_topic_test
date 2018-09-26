@@ -1,10 +1,10 @@
 {% extends 'layout.html.twig' %}
 {% block page_header_breadcrumb_root %}home{% endblock %}
-{% block page_header_breadcrumb_child %}Page header 2{% endblock %}
-{% block page_header_title %}Page header 3{% endblock %}
+{% block page_header_breadcrumb_child %}{{ page_header_title }}{% endblock %}
+{% block page_header_title %}{{ page_header_title }}{% endblock %}
 
 {% block dynamic %}
-    <div class="row">
+    <div class="row" id="_topic_">
         {% block siderBarLeft %}
             {{ include('siderBarLeft/siderbar-left.html.twig',{'id':'1'}) }}
         {% endblock %}
@@ -12,7 +12,7 @@
             <section class="panel">
                 <header class="panel-heading">
                     <div class="panel-actions">
-                        <a href="{{ path('topic_new') }}" class="btn btn-primary fa fa-user"> Ajouter Topic</a>
+                        <a href="{{ path('topic_new') }}" class="btn btn-primary fa fa-plus-circle"> Ajouter Topic</a>
                     </div>
                     <h2 class="panel-title">{{ header_title_panel }}</h2>
                 </header>
@@ -33,7 +33,7 @@
                                 <tr id="{{ topic.getId() }}" class="gradeX">
                                     <td class="dt-center">
                                         <div class="img-thumbnail-custom">
-                                            <img src="{{ asset(PHOTO_PATH~'/'~ user.photo) }}" alt="">
+                                            <img src="{{ asset(PHOTO_PATH~'/'~ user.photo)| imagine_filter('my_thumb_30') }}" alt="">
                                         </div>
                                     </td>
                                     <td>{{ user.getUsername() }}</td>

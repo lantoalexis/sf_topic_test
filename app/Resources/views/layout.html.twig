@@ -49,32 +49,32 @@
 										<div class="header-nav-main header-nav-main-effect-1 header-nav-main-sub-effect-1 collapse">
 											<nav>
 												<ul class="nav nav-pills" id="mainNav">
-													<li class="dropdown _home_">
-														<a class="dropdown" href="{{ path('homepage') }}">
+													<li class="dropdown _search_">
+														<a class="dropdown " href="{{ path('homepage') }}">
 															<i class="fa fa-home"></i> Home
 														</a>
 													</li>
-													<li class="dropdown ">
+													<li class="dropdown _topic_">
 														<a class="dropdown-toggle" href="{{ path('topic_index') }}">Topic</a>
 														<ul class="dropdown-menu">
 															<li><a href="{{ path('topic_index') }}">Topic</a></li>
 															<li><a href="{{ path('topic_new') }}">Ajouter Topic</a></li>
 														</ul>
 													</li>
-													<li class="dropdown ">
+													<li class="dropdown _user_">
 														<a class="dropdown-toggle" href="{{ path('user_index') }}">Utilisateur</a>
 														<ul class="dropdown-menu">
 															<li><a href="{{ path('user_index') }}">Utilisateur</a></li>
 															<li><a href="{{ path('user_new') }}">Ajouter Utilisateur</a></li>
 														</ul>
 													</li>
-													<li class="dropdown ">
+													<li class="dropdown _user_view_topic_">
 														<a class="dropdown" href="{{ path('topicuserview_index') }}">Utilisateur vu topic</a>
 
 													</li>
 													{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
 														{% set user = app.user %}
-                                                        <li class="dropdown dropdown-mega dropdown-mega-signin signin logged _user_" id="headerAccount">
+                                                        <li class="dropdown dropdown-mega dropdown-mega-signin signin logged _userfos_" id="headerAccount">
 															<a class="dropdown-toggle" href="#"><i class="fa fa-user"></i> {{ app.user.username }}</a>
 															<ul class="dropdown-menu">
 																<li>

@@ -33,6 +33,7 @@ class TopicController extends Common
         return $this->render('topic/index.html.twig', array(
             'topics' => $topics,
             'header_title_panel' => "Liste des Topics",
+            'page_header_title' => "Topic",
 
         ));
     }
@@ -52,12 +53,9 @@ class TopicController extends Common
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
 
-            $userViewTopic = new TopicUserView();
-            $userViewTopic->setTopic($topic);
-            $userViewTopic->setUser($topic->getUser());
+            $topic->addUser($topic->getUser());
 
             $em->persist($topic);
-            $em->persist($userViewTopic);
             $em->flush();
 
             return $this->redirectToRoute('topic_index', array('id' => $topic->getId()));
@@ -66,6 +64,7 @@ class TopicController extends Common
         return $this->render('topic/new.html.twig', array(
             'topic' => $topic,
             'header_title_panel' => "Ajouter Topic",
+            'page_header_title' => "Topic",
             'form' => $form->createView(),
         ));
     }
@@ -93,6 +92,7 @@ class TopicController extends Common
         return $this->render('topic/edit.html.twig', array(
             'topic' => $topic,
             'header_title_panel' => "Editer Topic",
+            'page_header_title' => "Topic",
             'form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
@@ -149,7 +149,7 @@ class TopicController extends Common
     /**
      * Finds and displays a topic entity.
      *
-     * @Route("/{id}", name="topic_show")
+     * @Route("/{id}/show", name="topic_show")
      * @Method("GET")
      */
     public function showAction(Topic $topic)
@@ -159,6 +159,8 @@ class TopicController extends Common
         return $this->render('topic/show.html.twig', array(
             'topic' => $topic,
             'delete_form' => $deleteForm->createView(),
+            'header_title_panel' => "Détail Topic",
+            'page_header_title' => "Topic",
         ));
     }
 

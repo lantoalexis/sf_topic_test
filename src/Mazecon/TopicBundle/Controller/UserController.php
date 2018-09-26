@@ -32,7 +32,8 @@ class UserController extends Common
 
         return $this->render('user/userList.html.twig', array(
             'users' => $users,
-            'header_title_panel' => "Liste des utilisateurs"
+            'header_title_panel' => "Liste des utilisateurs",
+            'page_header_title' => "Utilisateur",
         ));
     }
 
@@ -62,21 +63,10 @@ class UserController extends Common
         return $this->render('user/addUserForm.html.twig', array(
             'user' => $user,
             'header_title_panel' => "Ajouter nouveau utilisateur",
+            'page_header_title' => "Utilisateur",
             'form' => $form->createView(),
         ));
     }
-
-    public function uploadPhoto($context) {
-        $photo = $context->getPhoto();
-
-        $newFileName = sha1(uniqid()).'.'.$photo->guessExtension();
-        $uploadPhotoDir = $this->container->getParameter('upload_photo');
-
-        $photo->move($uploadPhotoDir, $newFileName);
-        $context->setPhoto($newFileName);
-    }
-
-
 
 
     /**
@@ -137,13 +127,18 @@ class UserController extends Common
      */
     public function editAction(Request $request, User $user)
     {
+        $oldPhotoName = $user->getPhoto();
         $deleteForm = $this->createDeleteForm($user);
         $editForm = $this->createForm('Mazecon\TopicBundle\Form\UserType', $user);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
 
-            $this->uploadPhoto($user);
+            if(null != $user->getPhoto()){
+                $this->uploadPhoto($user);
+                $this->removeOldPhoto($oldPhotoName);
+            }
+            else $user->setPhoto($oldPhotoName);
 
             $this->getDoctrine()->getManager()->flush();
 
@@ -153,6 +148,7 @@ class UserController extends Common
         return $this->render('user/editUserForm.html.twig', array(
             'user' => $user,
             'header_title_panel' => "Modifier utilisateur",
+            'page_header_title' => "Utilisateur",
             'form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
@@ -170,8 +166,30 @@ class UserController extends Common
 
         return $this->render('user/show.html.twig', array(
             'user' => $user,
+            'header_title_panel' => "Détail utilisateur",
+            'page_header_title' => "Utilisateur",
             'delete_form' => $deleteForm->createView(),
         ));
+    }
+
+    public function uploadPhoto($context) {
+        $photo = $context->getPhoto();
+
+        $newFileName = sha1(uniqid()).'.'.$photo->guessExtension();
+        $uploadPhotoDir = $this->container->getParameter('upload_photo_path');
+
+        $photo->move($uploadPhotoDir, $newFileName);
+        $context->setPhoto($newFileName);
+    }
+
+    public function removeOldPhoto($photoName) {
+        $uploadPhotoPath = $this->getParameter('upload_photo_path');
+        $file = $uploadPhotoPath.DIRECTORY_SEPARATOR.$photoName;
+
+        if(!unlink($file)) {
+            $logger = $this->get('logger');
+            $logger->warning('Unable to remove the file');
+        }
     }
 
 }

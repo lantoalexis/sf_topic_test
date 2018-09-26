@@ -29,6 +29,17 @@ class User
      * @var string
      *
      * @ORM\Column(name="firstname", type="string", length=255)
+     * @Assert\Length(
+     *     min = 3, minMessage="Ce champ doit contenir au moins {{ limit }} caractères.",
+     *     max = 255, maxMessage="Ce champ doit contenir au plus {{ limit }} caractères.")
+     *
+     * @Assert\Regex(
+     *     pattern="/^\d+$/",
+     *     match=false,
+     *     message="Ce champ ne doit pas contenir uniquement un nombre.")
+     *
+     * @Assert\NotBlank(
+     *     message="ce champ ne peut pas être vide.")
      */
     protected $firstname;
 
@@ -36,6 +47,16 @@ class User
      * @var string
      *
      * @ORM\Column(name="lastname", type="string", length=255, nullable=true)
+     * @Assert\Length(
+     *     min = 3, minMessage="Ce champ doit contenir au moins {{ limit }} caractères.",
+     *     max = 255, maxMessage="Ce champ doit contenir au plus {{ limit }} caractères.")
+     *
+     * @Assert\Regex(
+     *     pattern="/^\d+$/",
+     *     match=false,
+     *     message="Ce champ ne doit pas contenir uniquement un nombre.")
+     *
+     *
      */
     protected $lastname;
 
@@ -43,6 +64,13 @@ class User
      * @var string
      *
      * @ORM\Column(name="username", type="string", length=50)
+     * @Assert\Regex(
+     *     pattern="/^\d+$/",
+     *     match=false,
+     *     message="Ce champ ne doit pas contenir uniquement un nombre.")
+     *
+     * @Assert\NotBlank(
+     *     message="ce champ ne peut pas être vide.")
      */
     protected $username;
 
@@ -50,7 +78,7 @@ class User
     /**
      * @var string
      *
-     * @ORM\Column(name="photo", type="string", length=255)
+     * @ORM\Column(name="photo", type="string", length=255, nullable=true)
      */
     protected $photo;
 
@@ -58,20 +86,18 @@ class User
      * @var \DateTime
      *
      * @ORM\Column(name="birthdate", type="date")
+     * @Assert\Date()
+     *
+     * @Assert\NotBlank(
+     *     message="ce champ ne peut pas être vide.")
      */
     protected $birthdate;
 
     /**
      * @var
-     * @ORM\OneToMany(targetEntity="Topic", mappedBy="user")
-     */
+     * @ORM\OneToMany(targetEntity="Topic", mappedBy="user", cascade={"remove"})
+*/
     protected $topics;
-
-    /**
-     * @var
-     * @ORM\OneToMany(targetEntity="TopicUserView", mappedBy="user")
-     */
-    protected $usersView;
 
     /**
      * @var
@@ -279,37 +305,5 @@ class User
         return $this->firstname;
     }
 
-    /**
-     * Add usersView
-     *
-     * @param \Mazecon\TopicBundle\Entity\TopicUserView $usersView
-     *
-     * @return User
-     */
-    public function addUsersView(\Mazecon\TopicBundle\Entity\TopicUserView $usersView)
-    {
-        $this->usersView[] = $usersView;
 
-        return $this;
-    }
-
-    /**
-     * Remove usersView
-     *
-     * @param \Mazecon\TopicBundle\Entity\TopicUserView $usersView
-     */
-    public function removeUsersView(\Mazecon\TopicBundle\Entity\TopicUserView $usersView)
-    {
-        $this->usersView->removeElement($usersView);
-    }
-
-    /**
-     * Get usersView
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getUsersView()
-    {
-        return $this->usersView;
-    }
 }

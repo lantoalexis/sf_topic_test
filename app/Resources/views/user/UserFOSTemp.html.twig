@@ -1,7 +1,7 @@
 {% extends 'layout.html.twig' %}
 {% block page_header_breadcrumb_root %}home{% endblock %}
-{% block page_header_breadcrumb_child %}Page header 2{% endblock %}
-{% block page_header_title %}Page header 3{% endblock %}
+{% block page_header_breadcrumb_child %}{{ page_header_title }}{% endblock %}
+{% block page_header_title %}{{ page_header_title }}{% endblock %}
 
 {% block dynamic %}
     <div class="row">

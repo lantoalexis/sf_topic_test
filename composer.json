@@ -19,6 +19,7 @@
         "doctrine/orm": "^2.5",
         "friendsofsymfony/user-bundle": "^2.1",
         "incenteev/composer-parameter-handler": "^2.0",
+        "jms/di-extra-bundle": "^1.9",
         "jms/serializer-bundle": "^2.4",
         "knplabs/knp-paginator-bundle": "^2.8",
         "liip/imagine-bundle": "^1.9",

@@ -1,11 +1,11 @@
 {% extends 'layout.html.twig' %}
 {% block page_header_breadcrumb_root %}home{% endblock %}
-{% block page_header_breadcrumb_child %}Page header 2{% endblock %}
-{% block page_header_title %}Page header 3{% endblock %}
+{% block page_header_breadcrumb_child %}{{ page_header_title }}{% endblock %}
+{% block page_header_title %}{{ page_header_title }}{% endblock %}
 
 
 {% block dynamic %}
-    <div class="row" id="_user_">
+    <div class="row" id="_search_">
         {% block siderBarLeft %}
             {{ include('siderBarLeft/siderbar-left.html.twig',{'id':'1'}) }}
         {% endblock %}
@@ -30,7 +30,7 @@
                                             </p>
                                             <a href="{{ path('user_show', {'id':user.getId()}) }}" class="has-thumb">
                                                 <div class="result-thumb">
-                                                    <img src="{{ asset(PHOTO_PATH~'/'~ user.photo) }}" alt="">
+                                                    <img src="{{ asset(PHOTO_PATH~'/'~ user.photo)| imagine_filter('my_thumb_75') }}" alt="">
                                                 </div>
                                                 <div class="result-data">
                                                     <p class="h3 title text-primary">{{ user.getFirstname() | upper }} {{ user.getLastname() }}</p>
@@ -54,6 +54,7 @@
                                                 <div class="result-data">
                                                     <p class="h3 title text-primary">{{ topic.getTitle() }}</p>
                                                     <p class="description"> Auteur: {{ usertopic.getUsername() }}</p>
+                                                    <p class="description"> Vue(s): {{ topic.getUsers()|length }}</p>
                                                 </div>
                                             </a>
                                         </li>

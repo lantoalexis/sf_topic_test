@@ -1,0 +1,95 @@
+{% extends 'layout.html.twig' %}
+{% block page_header_breadcrumb_root %}home{% endblock %}
+{% block page_header_breadcrumb_child %}{{ page_header_title }}{% endblock %}
+{% block page_header_title %}{{ page_header_title }}{% endblock %}
+{% block dynamic %}
+    <div class="row" id="_topic_">
+        {% block siderBarLeft %}
+            {{ include('siderBarLeft/siderbar-left.html.twig',{'id':'1'}) }}
+        {% endblock %}
+        <div class="col-md-9">
+            <section class="panel">
+                <header class="panel-heading">
+                    <div class="panel-actions">
+                        <a href="{{ path('topic_new') }}" class="btn btn-primary fa fa-user"> Ajouter Topic</a>
+                    </div>
+                    <h2 class="panel-title">{{ header_title_panel }}</h2>
+                </header>
+                <div class="panel-body">
+
+                    {{ dump(knp_pagination_render(pagination)) }}
+
+                    {# total items count #}
+                    <div class="count">
+                        {{ pagination.getTotalItemCount }}
+                    </div>
+                    <table class="table mb-none" id="">
+                        <tr>
+                            {# sorting of properties based on query components #}
+                            <th{% if pagination.isSorted('t.id') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'N', 't.id') }}</th>
+                            <th{% if pagination.isSorted('u.username') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Auteur', 'u.username') }}</th>
+                            <th{% if pagination.isSorted('t.title') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Title', 't.title') }}</th>
+                            <th>Actions</th>
+                        </tr>
+
+                        {# table body #}
+                        {% for topic in pagination %}
+                            <tr {% if loop.index is odd %}class="color"{% endif %}>
+                                <td>{{ topic.id }}</td>
+                                <td>{{ topic.user.username }}</td>
+                                <td>{{ topic.title }}</td>
+                                <td class="actions dt-center">
+                                    <a href="{{ path('topic_edit', {'id':topic.getId()}) }}" class="on-default edit-row"><i class="fa fa-pencil"></i></a>
+                                    <a href="#" class="on-default remove-row"><i class="fa fa-trash-o"></i></a>
+                                    <a href="{{ path('topic_show', {'id':topic.getId()}) }}" class="on-default"><i class="fa fa-eye"></i></a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                    {# display navigation #}
+                    <div class="navigation">
+                        {{ knp_pagination_render(pagination) }}
+                    </div>
+
+
+                </div>
+            </section>
+        </div>
+    </div>
+{% endblock %}
+
+
+
+
+{% block javascripts_current_page %}
+    <script src="{{ asset('extension/vendor/select2/select2.js') }}" ></script>
+    <script src="{{ asset('dataTables/datatables.min.js') }}" ></script>
+    <script src="{{ asset('extension/vendor/magnific-popup/magnific-popup.js') }}" ></script>
+
+    <script src="{{ asset('extension/javascripts/theme.js') }}" ></script>
+    <script src="{{ asset('extension/javascripts/theme.custom.js') }}" ></script>
+    <script src="{{ asset('extension/javascripts/theme.init.js') }}" ></script>
+
+    <script src="{{ asset('extension/javascripts/tables/topic.datatables.js') }}" ></script>
+
+    <script src="{{ asset('extension/vendor/pnotify/pnotify.custom.js') }}" ></script>
+    {#<script src="{{ asset('extension/vendor/jquery-datatables/media/js/jquery.dataTables.js') }}" ></script>#}
+    {#<script src="{{ asset('extension/vendor/jquery-datatables-bs3/assets/js/datatables.js') }}" ></script>#}
+
+    {#<script>
+        $(document).ready(function(){
+            $('#datatable-topic').DataTable();
+        })
+    </script>#}
+
+{% endblock %}
+
+{% block css_current_page %}
+    <link rel="stylesheet" href="{{ asset('extension/vendor/select2/select2.css') }}">
+    <link rel="stylesheet" href="{{ asset('extension/vendor/pnotify/pnotify.custom.css') }}">
+    <link rel="stylesheet" href="{{ asset('extension/vendor/magnific-popup/magnific-popup.css') }}">
+
+
+    <link rel="stylesheet" href="{{ asset('dataTables/datatables.min.css') }}">
+    {#<link rel="stylesheet" href="{{ asset('extension/vendor/jquery-datatables-bs3/assets/css/datatables.css') }}">#}
+{% endblock %}

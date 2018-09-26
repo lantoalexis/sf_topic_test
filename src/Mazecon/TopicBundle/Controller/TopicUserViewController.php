@@ -27,13 +27,12 @@ class TopicUserViewController extends Common
     {
         $em = $this->getDoctrine()->getManager();
 
-        $usersViewTopic = new TopicUserView();
-
         $topics = $em->getRepository('MazeconTopicBundle:Topic')->findAll();
 
         return $this->render('topicuserview/index.html.twig', array(
             'topics' => $topics,
             'header_title_panel' => "Liste des Topics",
+            'page_header_title' => "Topic",
         ));
     }
 
@@ -54,19 +53,16 @@ class TopicUserViewController extends Common
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
 
-            $usersView = $form->get('usersView')->getData();
-
-            $topic->addUsersView($usersView);
-
             $em->persist($topic);
             $em->flush();
 
-            return $this->redirectToRoute('topic_index');
+            return $this->redirectToRoute('topicuserview_index');
         }
 
-        return $this->render('topic/new.html.twig', array(
+        return $this->render('topicuserview/new.html.twig', array(
             'topic' => $topic,
             'header_title_panel' => "Ajouter Topic",
+            'page_header_title' => "Topic",
             'form' => $form->createView(),
         ));
     }
@@ -84,6 +80,8 @@ class TopicUserViewController extends Common
 
         return $this->render('topicuserview/show.html.twig', array(
             'topicUserView' => $topicUserView,
+            'header_title_panel' => "Détail Topic",
+            'page_header_title' => "Topic",
             'delete_form' => $deleteForm->createView(),
         ));
     }
@@ -109,6 +107,8 @@ class TopicUserViewController extends Common
         return $this->render('topicuserview/edit.html.twig', array(
             'topicUserView' => $topicUserView,
             'edit_form' => $editForm->createView(),
+            'page_header_title' => "Topic",
+            'header_title_panel' => "Modifier vue Topic",
             'delete_form' => $deleteForm->createView(),
         ));
     }
