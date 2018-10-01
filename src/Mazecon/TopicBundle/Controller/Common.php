@@ -14,10 +14,17 @@ class Common extends Controller
 
         $request = \Symfony\Component\HttpFoundation\Request::createFromGlobals();
 
-        if(stripos($request->getPathInfo(), 'api') !== false && $request->isXmlHttpRequest()) {
+        if(stripos($request->getPathInfo(), 'api') !== false) {
 
             $serializer = \JMS\Serializer\SerializerBuilder::create()->build();
             $dataSerialized = $serializer->serialize($parameters, 'json');
+
+            if(null !== $response) {
+                $response->setContent($dataSerialized)
+                    ->headers->set('Content-Type','Application/json');
+
+                return $response;
+            }
 
             return new Response($dataSerialized, 200, array('Content-Type', 'application/json'));
         }

@@ -101,7 +101,7 @@ class User
 
     /**
      * @var
-     * @ORM\OneToOne(targetEntity="UserFos", mappedBy="user", cascade={"remove", "persist"})
+     * @ORM\OneToOne(targetEntity="UserFOS", mappedBy="user", cascade={"remove", "persist"})
      */
     protected $userFos;
 
@@ -176,7 +176,6 @@ class User
     public function setPhoto($photo)
     {
         $this->photo = $photo;
-
         return $this;
     }
 
@@ -236,11 +235,11 @@ class User
     /**
      * Set userFos
      *
-     * @param \Mazecon\TopicBundle\Entity\UserFos $userFos
+     * @param \Mazecon\TopicBundle\Entity\UserFOS $userFos
      *
      * @return User
      */
-    public function setUserFos(\Mazecon\TopicBundle\Entity\UserFos $userFos = null)
+    public function setUserFos(\Mazecon\TopicBundle\Entity\UserFOS $userFos = null)
     {
         $this->userFos = $userFos;
 
@@ -250,7 +249,7 @@ class User
     /**
      * Get userFos
      *
-     * @return \Mazecon\TopicBundle\Entity\UserFos
+     * @return \Mazecon\TopicBundle\Entity\UserFOS
      */
     public function getUserFos()
     {

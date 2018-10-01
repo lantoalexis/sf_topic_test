@@ -16,6 +16,8 @@
         }
         if($('#_user_').length > 0){
             $('._user_').addClass('active');
+        }if($('#_login_').length > 0){
+            $('._login_').addClass('active');
         }
         if($('#_user_view_topic_').length > 0){
             $('._user_view_topic_').addClass('active');

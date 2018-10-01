@@ -58,19 +58,22 @@
 														<a class="dropdown-toggle" href="{{ path('topic_index') }}">Topic</a>
 														<ul class="dropdown-menu">
 															<li><a href="{{ path('topic_index') }}">Topic</a></li>
-															<li><a href="{{ path('topic_new') }}">Ajouter Topic</a></li>
+                                                            {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+																<li><a href="{{ path('topic_new') }}">Ajouter Topic</a></li>
+                                                            {% endif %}
 														</ul>
 													</li>
-													<li class="dropdown _user_">
-														<a class="dropdown-toggle" href="{{ path('user_index') }}">Utilisateur</a>
-														<ul class="dropdown-menu">
-															<li><a href="{{ path('user_index') }}">Utilisateur</a></li>
-															<li><a href="{{ path('user_new') }}">Ajouter Utilisateur</a></li>
-														</ul>
-													</li>
+													{% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+														<li class="dropdown _user_">
+															<a class="dropdown-toggle" href="{{ path('user_index') }}">Utilisateur</a>
+															<ul class="dropdown-menu">
+																<li><a href="{{ path('user_index') }}">Utilisateur</a></li>
+																<li><a href="{{ path('user_new') }}">Ajouter Utilisateur</a></li>
+															</ul>
+														</li>
+                                                    {% endif %}
 													<li class="dropdown _user_view_topic_">
 														<a class="dropdown" href="{{ path('topicuserview_index') }}">Utilisateur vu topic</a>
-
 													</li>
 													{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
 														{% set user = app.user %}
@@ -103,6 +106,10 @@
 																	</div>
 																</li>
 															</ul>
+														</li>
+													{% else %}
+														<li class="dropdown _login_">
+															<a class="dropdown" href="{{ path('fos_user_security_login') }}">login</a>
 														</li>
 													{% endif %}
 

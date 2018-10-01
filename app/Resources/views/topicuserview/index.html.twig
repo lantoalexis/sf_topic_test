@@ -11,9 +11,11 @@
         <div class="col-md-9">
             <section class="panel">
                 <header class="panel-heading">
-                    <div class="panel-actions">
-                        <a href="{{ path('topic_new') }}" class="btn btn-primary fa fa-plus-circle"> Ajouter Topic</a>
-                    </div>
+                    {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                        <div class="panel-actions">
+                            <a href="{{ path('topic_new') }}" class="btn btn-primary fa fa-plus-circle"> Ajouter Topic</a>
+                        </div>
+                    {% endif %}
                     <h2 class="panel-title">{{ header_title_panel }}</h2>
                 </header>
                 <div class="panel-body">
@@ -24,7 +26,9 @@
                             <th>Auteur</th>
                             <th>Titre Topic</th>
                             <th>vue(s)</th>
-                            <th>Actions</th>
+                            {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                                <th>Actions</th>
+                            {% endif %}
                         </tr>
                         </thead>
                         <tbody>
@@ -41,16 +45,21 @@
                                     <td>{{ user.getUsername() }}</td>
                                     <td><a href="{{ path('topic_show', {'id':topic.getId()}) }}">{{ topic.getTitle }}</a></td>
                                     <td class="dt-center">{{ usersView|length }}</td>
-                                    <td class="actions dt-center">
-                                        {#<a href="{{ path('topicuserview_edit', {'id':topic.getId()}) }}" class="on-default edit-row"><i class="fa fa-pencil"></i></a>
-                                        <a href="#" class="on-default remove-row"><i class="fa fa-trash-o"></i></a>
-                                        <a href="{{ path('topicuserview_show', {'id':topic.getId()}) }}" class="on-default"><i class="fa fa-eye"></i></a>#}
-                                        {% if usersView|length > 1 %}
-                                            <a href="{{ path('topicuserview_new', {'id':topic.getId()}) }}" class="btn btn-sm btn-info">Ajouter/Modifier vue</a>
-                                        {% endif %}
-                                        {% if usersView|length == 1 %}
-                                            <a href="{{ path('topicuserview_new', {'id':topic.getId()}) }}" class="btn btn-sm btn-primary">Ajouter vue</a>
-                                        {% endif %}
+
+                                    {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                                        <td class="actions dt-center">
+                                              {#<a href="{{ path('topicuserview_edit', {'id':topic.getId()}) }}" class="on-default edit-row"><i class="fa fa-pencil"></i></a>
+                                            <a href="#" class="on-default remove-row"><i class="fa fa-trash-o"></i></a>
+                                            <a href="{{ path('topicuserview_show', {'id':topic.getId()}) }}" class="on-default"><i class="fa fa-eye"></i></a>#}
+                                            {% if usersView|length > 1 %}
+                                                <a href="{{ path('topicuserview_new', {'id':topic.getId()}) }}" class="btn btn-sm btn-info">Ajouter/Modifier vue</a>
+                                            {% endif %}
+                                            {% if usersView|length == 1 %}
+                                                <a href="{{ path('topicuserview_new', {'id':topic.getId()}) }}" class="btn btn-sm btn-primary">Ajouter vue</a>
+                                            {% endif %}
+                                        </td>
+                                    {% endif %}
+
                                 </tr>
                             {% endfor %}
                         {% endif %}
@@ -74,7 +83,9 @@
     <script src="{{ asset('extension/javascripts/theme.custom.js') }}" ></script>
     <script src="{{ asset('extension/javascripts/theme.init.js') }}" ></script>
 
-    <script src="{{ asset('extension/javascripts/tables/topic.datatables.js') }}" ></script>
+    {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+        <script src="{{ asset('extension/javascripts/tables/topic.datatables.js') }}" ></script>
+    {% endif %}
 
     <script src="{{ asset('extension/vendor/pnotify/pnotify.custom.js') }}" ></script>
     {#<script src="{{ asset('extension/vendor/jquery-datatables/media/js/jquery.dataTables.js') }}" ></script>#}

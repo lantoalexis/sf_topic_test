@@ -135,7 +135,7 @@
          return null;
      }
 
-     public function titleTopicSearch($request, $topic){
+     public function titleTopicSearch($request, $topic) {
          if(stristr($topic->getTitle(), $request)){
              foreach (SearchController::$topicResult as $t) {
                  if($t->getId() == $topic->getId())
@@ -149,7 +149,7 @@
      }
 
 
-     public function usernameUserSearch($request, $user){
+     public function usernameUserSearch($request, $user) {
          if(stristr($user->getUsername(), $request)){
              foreach (SearchController::$userResult as $u) {
                  if($u->getId() == $user->getId())

@@ -9,11 +9,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
-
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 /**
  * Topicuserview controller.
  *
  * @Route("topicuserview")
+ *
+ *
  */
 class TopicUserViewController extends Common
 {
@@ -41,6 +43,8 @@ class TopicUserViewController extends Common
      *
      * @Route("/{id}/new", name="topicuserview_new")
      * @Method({"GET", "POST"})
+     *
+     * @Security("is_granted('IS_AUTHENTICATED_REMEMBERED')")
      */
     public function newAction(Request $request, $id)
     {
@@ -91,6 +95,8 @@ class TopicUserViewController extends Common
      *
      * @Route("/{id}/edit", name="topicuserview_edit")
      * @Method({"GET", "POST"})
+     *
+     * @Security("is_granted('IS_AUTHENTICATED_REMEMBERED')")
      */
     public function editAction(Request $request, TopicUserView $topicUserView)
     {
@@ -118,6 +124,8 @@ class TopicUserViewController extends Common
      *
      * @Route("/{id}/delete", name="topicuserview_delete")
      * @Method("DELETE")
+     *
+     * @security("is_granted('IS_AUTHENTICATED_REMEMBERED')")
      */
     public function deleteAction(Request $request, TopicUserView $topicUserView)
     {

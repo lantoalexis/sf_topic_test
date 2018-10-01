@@ -23,3 +23,8 @@ fos_user:
 
 _liip_imagine:
     resource: "@LiipImagineBundle/Resources/config/routing.xml"
+
+
+mazecon_topic_rest:
+    resource: "@MazeconTopicBundle/Controller/TopicRestController.php"
+    type: rest

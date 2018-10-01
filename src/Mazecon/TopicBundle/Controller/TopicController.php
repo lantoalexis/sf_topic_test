@@ -10,6 +10,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
  * Topic controller.
@@ -23,6 +24,7 @@ class TopicController extends Common
      *
      * @Route("/", name="topic_index")
      * @Method("GET")
+     * @Route("/api/", name="topic_index_api")
      */
     public function indexAction()
     {
@@ -35,7 +37,7 @@ class TopicController extends Common
             'header_title_panel' => "Liste des Topics",
             'page_header_title' => "Topic",
 
-        ));
+        ), new Response(null,Response::HTTP_NOT_FOUND));
     }
 
     /**
@@ -43,6 +45,8 @@ class TopicController extends Common
      *
      * @Route("/new", name="topic_new")
      * @Method({"GET", "POST"})
+     *
+     * @Security("is_granted('IS_AUTHENTICATED_REMEMBERED')")
      */
     public function newAction(Request $request)
     {
@@ -76,6 +80,8 @@ class TopicController extends Common
      *
      * @Route("/{id}/edit", name="topic_edit")
      * @Method({"GET", "POST"})
+     *
+     * @Security("is_granted('IS_AUTHENTICATED_REMEMBERED')")
      */
     public function editAction(Request $request, Topic $topic)
     {
@@ -103,6 +109,8 @@ class TopicController extends Common
      *
      * @Route("/delete", name="topic_delete")
      * @Method("DELETE")
+     *
+     * @Security("is_granted('IS_AUTHENTICATED_REMEMBERED')")
      */
     public function deleteAction(Request $request)
     {

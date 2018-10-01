@@ -25,14 +25,14 @@ security:
             pattern: ^/
             form_login:
                 provider: fos_userbundle
-                default_target_path: /home
+                default_target_path: /topic
                 csrf_token_generator: security.csrf.token_manager
                 # csrf_provider: form.csrf_provider
                 # if you are using Symfony < 2.8, use the following config instead
 
             logout:
                 path:     /logout
-                target:   /home
+                target:   /topic
             anonymous: ~
             # activate different ways to authenticate
 
@@ -42,15 +42,17 @@ security:
             # https://symfony.com/doc/current/security/form_login_setup.html
             #form_login: ~
     access_control:
-        - { path: ^/login$,    role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/register,  role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/*,         role: IS_AUTHENTICATED_REMEMBERED}
-        - { path: ^/home,      role: IS_AUTHENTICATED_REMEMBERED}
+        - { path: ^/topicuserview,    role: IS_AUTHENTICATED_ANONYMOUSLY}
+        - { path: ^/login$,    role: IS_AUTHENTICATED_ANONYMOUSLY}
+        - { path: ^/register,  role: IS_AUTHENTICATED_ANONYMOUSLY}
+        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY}
+        - { path: ^/topic,     role: IS_AUTHENTICATED_ANONYMOUSLY}
+        - { path: ^/home,      role: IS_AUTHENTICATED_ANONYMOUSLY}
+        - { path: ^/*,         role: IS_AUTHENTICATED_ANONYMOUSLY}
         - { path: ^/profile,   role: IS_AUTHENTICATED_REMEMBERED}
         - { path: ^/profile/,  role: IS_AUTHENTICATED_REMEMBERED}
-        - { path: ^/admin/,    role: ROLE_ADMIN }
-        - { path: ^/admin,     role: ROLE_ADMIN }
+        - { path: ^/admin/,    role: ROLE_ADMIN}
+        - { path: ^/admin,     role: ROLE_ADMIN}
         - { path: ^/add,       role: ROLE_ADMIN}
         - { path: ^/remove,    role: ROLE_ADMIN}
         - { path: ^/edit,      role: ROLE_ADMIN}
