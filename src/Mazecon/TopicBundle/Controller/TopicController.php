@@ -4,18 +4,19 @@ namespace Mazecon\TopicBundle\Controller;
 
 use Mazecon\TopicBundle\Controller\Common;
 use Mazecon\TopicBundle\Entity\Topic;
-use Mazecon\TopicBundle\Entity\TopicUserView;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use FOS\RestBundle\Controller\Annotations as Rest;
 
 /**
  * Topic controller.
  *
  * @Route("topic")
+ *
  */
 class TopicController extends Common
 {
@@ -24,7 +25,8 @@ class TopicController extends Common
      *
      * @Route("/", name="topic_index")
      * @Method("GET")
-     * @Route("/api/", name="topic_index_api")
+     * @Rest\Get("/topics")
+     * @Rest\View(statusCode=Response::HTTP_OK)
      */
     public function indexAction()
     {
@@ -45,7 +47,7 @@ class TopicController extends Common
      *
      * @Route("/new", name="topic_new")
      * @Method({"GET", "POST"})
-     *
+     * @Rest\Post("/new")
      * @Security("is_granted('IS_AUTHENTICATED_REMEMBERED')")
      */
     public function newAction(Request $request)

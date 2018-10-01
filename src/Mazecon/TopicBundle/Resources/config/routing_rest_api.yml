@@ -1,0 +1,25 @@
+mazecon_api_topic:
+    type: rest
+    name_prefix: api_topic_
+    resource: "@MazeconTopicBundle/Controller/TopicController.php"
+
+mazecon_api_user:
+    type: rest
+    name_prefix: api_user_
+    resource: "@MazeconTopicBundle/Controller/UserController.php"
+
+mazecon_api_search:
+    type: rest
+    name_prefix: api_search_
+    resource: "@MazeconTopicBundle/Controller/SearchController.php"
+
+mazecon_api_registration:
+    type: rest
+    name_prefix: api_registration_
+    resource: "@MazeconTopicBundle/Controller/RegistrationController.php"
+
+#mazecon_api_userview:
+#    type: rest
+#    name_prefix: api_topicuserview_
+#    resource: "@MazeconTopicBundle/Controller/TopicUserViewController.php"
+#

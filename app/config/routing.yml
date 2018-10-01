@@ -1,14 +1,3 @@
-mazecon_topic_topic_user_view:
-    resource: "@MazeconTopicBundle/Controller/TopicUserViewController.php"
-    type:     annotation
-
-mazecon_topic_user:
-    resource: "@MazeconTopicBundle/Controller/UserController.php"
-    type:     annotation
-
-mazecon_topic_topic:
-    resource: "@MazeconTopicBundle/Controller/TopicController.php"
-    type:     annotation
 
 mazecon_topic:
     resource: "@MazeconTopicBundle/Controller/"
@@ -25,6 +14,7 @@ _liip_imagine:
     resource: "@LiipImagineBundle/Resources/config/routing.xml"
 
 
-mazecon_topic_rest:
-    resource: "@MazeconTopicBundle/Controller/TopicRestController.php"
+mazecon_topic_api_rest:
+    resource: "@MazeconTopicBundle/Resources/config/routing_rest_api.yml"
     type: rest
+    prefix: /api

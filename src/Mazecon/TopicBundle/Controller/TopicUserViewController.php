@@ -4,12 +4,14 @@ namespace Mazecon\TopicBundle\Controller;
 
 use Mazecon\TopicBundle\Controller\Common;
 use Mazecon\TopicBundle\Entity\Topic;
-use Mazecon\TopicBundle\Entity\TopicUserView;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use FOS\RestBundle\Controller\Annotations as Rest;
+
+
 /**
  * Topicuserview controller.
  *
@@ -24,6 +26,7 @@ class TopicUserViewController extends Common
      *
      * @Route("/", name="topicuserview_index")
      * @Method("GET")
+     * @Rest\Get("/topicuserview")
      */
     public function indexAction()
     {

@@ -5,6 +5,8 @@
  use Symfony\Bundle\FrameworkBundle\Controller\Controller;
  use Symfony\Component\HttpFoundation\Request;
  use Symfony\Component\Routing\Annotation\Route;
+ use FOS\RestBundle\Controller\Annotations as Rest;
+ use Symfony\Component\HttpFoundation\Response;
 
  /**
   * Class SearchController
@@ -16,9 +18,12 @@
      const SEARCH_NOT_FOUND_MSG  = "Aucun résultat trouvé.";
      public static $userResult = array();
      public static $topicResult = array();
+
      /**
       * @param Request $request
       * @Route("/", name="search_page")
+      * @Rest\Post("/search")
+      * @Rest\View(statusCode=Response::HTTP_OK)
       */
      public function searchAction(Request $request){
          if($request->getMethod() == 'GET') {
